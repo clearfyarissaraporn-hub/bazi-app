@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ปาจื้อ ฉัน / โลก</title>
+<meta name="theme-color" content="#1C1B1A">
+<meta name="description" content="ปาจื้อพื้นฐาน วิเคราะห์ธาตุ ดวงรายปีรายเดือน 2026–2050 ฝั่งตัวเองและฝั่งโลก">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ปาจื้อ">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#F7F4EE;--ink:#1C1B1A;--muted:#5E5A53;--line:#E4DED2;--card:#FFFFFF;--fire:#B23A0E;--indigo:#3346A0;
+--gb:#E3F1E6;--gf:#1E5E34;--mb:#F5ECD3;--mf:#6E5108;--db:#F8DFD8;--df:#9A2F1A;--nb:#ECE7DD;--nf:#4A463F}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans Thai',system-ui,sans-serif;font-size:16px;line-height:1.55}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px}
+main.wrap{display:flex;flex-direction:column;gap:14px;padding-top:14px;padding-bottom:40px}
+.top{position:sticky;top:0;z-index:5;background:rgba(247,244,238,.96);border-bottom:1px solid var(--line);padding:10px 0;display:flex;flex-direction:column;gap:8px}
+.row{display:flex;align-items:center;gap:10px}.sb{justify-content:space-between}.base{align-items:baseline}.grow{flex:1;min-width:0}
+.who{display:flex;align-items:center;gap:10px;background:none;border:0;padding:4px 0;min-height:48px;text-align:left}
+.avatar{width:42px;height:42px;border-radius:21px;background:var(--ink);color:var(--bg);display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:18px;flex:none}
+.who-t{display:flex;flex-direction:column;line-height:1.3}.who-t small{color:var(--muted);font-size:13px}
+.seg{display:grid;grid-template-columns:1fr 1fr 1fr;background:var(--nb);border-radius:14px;padding:4px;gap:4px}
+.seg button{height:42px;border:0;border-radius:10px;background:none;color:var(--muted);font-weight:500}
+.seg button.on{background:#fff;font-weight:600}.seg button{font-size:14px}.seg .on.me,.seg .on.profile{color:var(--fire)}.seg .on.world{color:var(--indigo)}
+h2{font-size:17px;font-weight:600;margin:6px 0 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+.card.soft{background:var(--bg)}
+.sel{outline:2px solid var(--ink);outline-offset:-1px}
+.pill{display:inline-block;font-size:13px;padding:2px 10px;border-radius:999px;white-space:nowrap;font-weight:500}
+.t-g{background:var(--gb);color:var(--gf)}.t-m{background:var(--mb);color:var(--mf)}.t-d{background:var(--db);color:var(--df)}.t-n{background:var(--nb);color:var(--nf)}
+.sm{font-size:14px}.dim{color:var(--muted)}.muted{color:var(--muted)}.mt{margin-top:6px}.mt8{margin-top:8px}
+.hero{border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:8px}
+.hero p{margin:0}
+.hero.me{background:var(--ink);color:#F7F4EE}.hero.me .dim{color:#CFC8BB}
+.hero.world{background:#22295C;color:#F2F1FA}.hero.world .dim{color:#C9CCEA}
+.hero .box{background:rgba(255,255,255,.1);border-radius:12px;padding:10px 12px;font-size:15px}.hero .box small{opacity:.8}
+.big{font-size:38px;font-weight:600;letter-spacing:2px;line-height:1.1}
+.natal{display:flex;flex-direction:column;gap:8px}.natal p{margin:0}
+.pgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;text-align:center}
+.pc{border-radius:10px;padding:6px 0;display:flex;flex-direction:column}.pc small{font-size:12px;color:var(--muted)}.pc b{font-size:22px;font-weight:600}
+.pc.on{background:var(--bg)}.pc.on small{color:var(--fire)}
+.ystrip{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none}.ystrip::-webkit-scrollbar{display:none}
+.ychip{flex:none;height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:14px}
+.ychip.on{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:600}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.topic{display:flex;flex-direction:column;gap:6px;text-align:left;min-height:112px}
+.mcell{border:0;border-radius:12px;padding:8px 2px;display:flex;flex-direction:column;align-items:center;min-height:68px}
+.mcell b{font-size:14px}.mcell small{font-size:12px}
+.mcell.sel{outline:2px solid currentColor;outline-offset:-2px}
+.box2{display:flex;flex-direction:column;gap:6px;align-items:flex-start}.box2 small{color:var(--muted);font-size:12px}
+.tline{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:10px;font-size:14px}
+details{margin-top:10px;font-size:14px}summary{cursor:pointer;color:var(--muted);min-height:32px}
+.facts{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:4px}.facts li{display:flex;justify-content:space-between;gap:10px}
+.pos{color:var(--gf);font-weight:600}.neg{color:var(--df);font-weight:600}
+.tbl{padding:4px 12px}.tr{display:grid;grid-template-columns:48px repeat(3,minmax(0,1fr));gap:6px;align-items:center;padding:7px 0;border-bottom:1px solid #F1ECE3;font-size:14px}
+.tr:last-child{border-bottom:0}.tr.hd{color:var(--muted);font-size:12px}.tr .pill{justify-self:start}
+.list{display:flex;flex-direction:column;gap:8px}
+.lrow{display:flex;align-items:center;gap:10px;padding:10px 12px;text-align:left;width:100%}
+.w56{width:56px;flex:none}
+.plain{display:flex;align-items:center;gap:10px;background:none;border:0;padding:0;text-align:left;min-height:44px}
+.icon{width:44px;height:44px;border-radius:22px;border:1px solid var(--line);background:#fff;flex:none}
+.icon.danger{background:var(--db);color:var(--df);font-size:13px}
+.btn{height:52px;border:0;border-radius:14px;background:var(--fire);color:#fff;font-weight:600;font-size:16px;width:100%}
+.hero .btn{margin-top:6px}
+.fine{font-size:12px;color:#6B675F;line-height:1.5;margin:8px 0 0}
+.scrim{position:fixed;inset:0;background:rgba(28,27,26,.45);z-index:10}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:11;background:var(--bg);border-radius:22px 22px 0 0;max-height:88vh;overflow:auto;padding:18px 16px 28px;max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+form{display:flex;flex-direction:column;gap:12px}
+label{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500}
+input[type=text],input:not([type]),input[type=date],input[type=time],select,input[name=name]{height:48px;padding:0 12px;border:1px solid #D8D1C4;border-radius:12px;background:#fff;font-weight:400;width:100%}
+fieldset{border:0;margin:0;padding:0}legend{font-size:14px;font-weight:500;padding:0;margin-bottom:6px}
+.radio{flex-direction:row;align-items:center;justify-content:center;gap:8px;height:48px;border:1px solid #D8D1C4;border-radius:12px;background:#fff;font-weight:400;font-size:15px}
+.radio:has(input:checked){border:2px solid var(--fire)}
+.check{flex-direction:row;align-items:flex-start;gap:10px;font-weight:400;font-size:15px;min-height:44px}
+.check input,.radio input{width:20px;height:20px;accent-color:var(--fire);margin:2px 0 0;flex:none}
+.err{color:var(--df);font-size:14px;margin:0;min-height:20px}
+
+h2.mt0{margin-top:0;margin-bottom:8px}.c{text-align:center}
+.dmbig{width:64px;height:64px;border-radius:18px;color:#fff;font-size:38px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.h1{font-size:20px}.prof .row.base{align-items:center;gap:14px}
+.warn{background:#FFF8E6;border-color:#EBD9A6;color:#5A4708}
+.dots{display:flex;gap:4px;justify-content:center;margin-top:2px}.dots i{width:7px;height:7px;border-radius:4px;display:block}
+.bw{display:grid;grid-template-columns:44px 1fr 42px 64px;align-items:center;gap:8px;margin:7px 0;font-size:14px}
+.bw.rb{grid-template-columns:118px 1fr 40px 30px}
+.track{height:14px;background:#F1ECE3;border-radius:7px;overflow:hidden}.track div{height:100%;border-radius:7px}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.gauge{position:relative;display:grid;grid-template-columns:42fr 16fr 42fr;height:30px;border-radius:10px;overflow:hidden;margin:6px 0 4px;font-size:12px}
+.zone{display:flex;align-items:center;justify-content:center}.z1{background:#F8DFD8;color:#9A2F1A}.z2{background:#F5ECD3;color:#6E5108}.z3{background:#E3F1E6;color:#1E5E34}
+.mark{position:absolute;top:-3px;bottom:-3px;width:4px;margin-left:-2px;background:var(--ink);border-radius:2px;box-shadow:0 0 0 2px #fff}
+.box3{border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}.box3 small{font-size:12px}.box3.g{background:var(--gb);color:var(--gf)}.box3.d{background:var(--db);color:var(--df)}
+.guide{display:flex;gap:12px;align-items:flex-start}.guide p{margin:2px 0 0}.gi{font-size:24px;line-height:1.2}
+.lucky{display:flex;gap:12px;align-items:center;margin:8px 0}.sw{width:36px;height:36px;border-radius:10px;flex:none}
+.lrow2{display:flex;align-items:center;gap:10px;padding:8px 6px;border-bottom:1px solid #F1ECE3}.lrow2:last-child{border-bottom:0}
+.lrow2.now{background:var(--bg);border-radius:10px}.lp{font-size:20px;letter-spacing:1px;width:56px}
+.ywrap{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}
+.ymini{height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:14px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;color:var(--muted)}.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}.legend i.dot{border-radius:5px}
+.w80{width:86px;flex:none;font-size:14px}
+textarea{width:100%;border:1px solid #D8D1C4;border-radius:12px;padding:10px 12px;font:inherit;font-size:15px;background:#fff;resize:vertical;margin:6px 0}
+.btn2{height:44px;padding:0 20px;border:0;border-radius:12px;background:var(--ink);color:#fff;font-weight:600}
+
+.gbtn{margin-left:auto;height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:14px;flex:none}.gbtn.on{background:var(--ink);color:#fff}
+.top .row{justify-content:space-between}
+.info{width:28px;height:28px;border-radius:14px;border:0;background:var(--nb);color:var(--muted);font-size:15px;vertical-align:middle;margin-left:4px;padding:0}
+.hero .info{background:rgba(255,255,255,.15);color:inherit}
+.link{background:none;border:0;padding:0;color:var(--indigo);text-decoration:underline;font:inherit;min-height:32px}
+.ul,.steps{margin:6px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px}.steps{font-size:15px}
+.lg{padding:8px 0;border-bottom:1px solid #F1ECE3}.lg:last-child{border-bottom:0}.lgr{display:flex;flex-direction:column;gap:4px;margin-top:4px}
+.gl{margin:0;display:flex;flex-direction:column;gap:10px}.gl dt{font-weight:600}.gl dd{margin:2px 0 0;font-size:14px;color:var(--muted)}
+.gl div{border-radius:10px;padding:4px 6px;transition:background 1s}.gl div.hl{background:#FFF1C9}
+.sm2{font-size:15px}
+
+.lead{font-size:17px}.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{font-size:13px;padding:3px 10px;border-radius:999px;background:var(--c);color:#fff}.chip.ghost{background:rgba(255,255,255,.14)}
+.prow{display:flex;gap:12px;align-items:flex-start;padding:8px 0;border-top:1px solid #F1ECE3}.pp{font-size:22px;width:52px;flex:none;letter-spacing:1px}
+.prose p{margin:0 0 8px}.prose p:last-child{margin-bottom:0}
+.kv{padding:8px 0;border-bottom:1px solid #F1ECE3}.kv:last-child{border-bottom:0}.kv p{margin:2px 0 0}
+.jobel{display:flex;gap:10px;margin:8px 0}.sw.sm2{width:14px;height:14px;border-radius:4px;margin-top:4px}
+.calc{margin:0;display:flex;flex-direction:column;gap:6px}.calc div{display:grid;grid-template-columns:110px 1fr;gap:8px}.calc dt{color:var(--muted)}.calc dd{margin:0}
+.box3 .ul{font-size:14px;color:var(--ink)}
+footer.fine{border-top:1px solid var(--line);padding-top:12px}
+.card{box-shadow:0 1px 2px rgba(28,27,26,.04)}
+.hero.me{background:linear-gradient(160deg,#2A2724 0%,#1C1B1A 70%)}
+.hero.world{background:linear-gradient(160deg,#2B3374 0%,#1E2452 75%)}
+.hero .big span{filter:brightness(1.35)}
+.ghost2{background:#fff;color:var(--ink);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px}
+:focus-visible{outline:3px solid var(--indigo);outline-offset:2px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// BaZi engine for any person — no dependencies, deterministic.
+// Works in browser, React Native, or Node (ES module).
+// Symbolic readings only: not a prediction of real events, not financial or medical advice.
+
+const VERSION = '2.2.0';
+const STEMS = '甲乙丙丁戊己庚辛壬癸';
+const BRANCHES = '子丑寅卯辰巳午未申酉戌亥';
+const EL = ['wood', 'fire', 'earth', 'metal', 'water'];
+const S_EL = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4]; // index into EL
+const B_EL = [4, 2, 0, 0, 2, 1, 1, 2, 3, 3, 2, 4];
+const EL_TH = { wood: 'ไม้', fire: 'ไฟ', earth: 'ดิน', metal: 'ทอง', water: 'น้ำ' };
+const ANIMAL = ['หนู', 'วัว', 'เสือ', 'กระต่าย', 'มังกร', 'งู', 'ม้า', 'แพะ', 'ลิง', 'ไก่', 'หมา', 'หมู'];
+const MONTH_TH = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+// hidden stems [stem, weight]
+const HIDDEN = [[[9, 1]], [[5, 1], [9, .5], [7, .3]], [[0, 1], [2, .5], [4, .3]], [[1, 1]], [[4, 1], [1, .5], [9, .3]],
+  [[2, 1], [6, .5], [4, .3]], [[3, 1], [5, .5]], [[5, 1], [3, .5], [1, .3]], [[6, 1], [8, .5], [4, .3]], [[7, 1]],
+  [[4, 1], [7, .5], [3, .3]], [[8, 1], [0, .5]]];
+const EARTH_B = new Set([1, 4, 7, 10]);
+const HARM = [[0, 7], [1, 6], [2, 5], [3, 4], [8, 11], [9, 10]];
+const SIX = [[0, 1, 2], [2, 11, 0], [3, 10, 1], [4, 9, 3], [5, 8, 4], [6, 7, 1]]; // a, b, element
+const TRINE = [[[8, 0, 4], 4], [[11, 3, 7], 0], [[2, 6, 10], 1], [[5, 9, 1], 3]];
+const DIREC = [[[2, 3, 4], 0], [[5, 6, 7], 1], [[8, 9, 10], 3], [[11, 0, 1], 4]];
+const PUNISH3 = [[2, 5, 8], [1, 10, 7]];
+const SELF_P = new Set([4, 6, 9, 11]);
+
+const mod = (a, n) => ((a % n) + n) % n;
+const r2 = (x) => Math.round(x * 100) / 100;
+const pillar = (s, b) => STEMS[s] + BRANCHES[b];
+
+// ------------------------------------------------------------ astronomy
+const J2000 = Date.UTC(2000, 0, 1, 12);
+const jdOf = (ms) => 2451545 + (ms - J2000) / 86400000;
+const msOf = (jd) => J2000 + (jd - 2451545) * 86400000;
+function sunLon(jd) {
+  const T = (jd - 2451545) / 36525;
+  const L0 = mod(280.46646 + 36000.76983 * T + 0.0003032 * T * T, 360);
+  const M = (mod(357.52911 + 35999.05029 * T - 0.0001537 * T * T, 360) * Math.PI) / 180;
+  const C = (1.914602 - 0.004817 * T - 0.000014 * T * T) * Math.sin(M)
+    + (0.019993 - 0.000101 * T) * Math.sin(2 * M) + 0.000289 * Math.sin(3 * M);
+  const om = ((125.04 - 1934.136 * T) * Math.PI) / 180;
+  return mod(L0 + C - 0.00569 - 0.00478 * Math.sin(om), 360);
+}
+const termCache = new Map();
+/** UTC ms when the sun reaches `lon` during Gregorian year `y`. */
+function termTime(y, lon) {
+  const key = y * 1000 + lon;
+  if (termCache.has(key)) return termCache.get(key);
+  const off = (mod(lon - 280, 360) / 360) * 365.2422;
+  const j0 = jdOf(Date.UTC(y, 0, 1)) + off;
+  let lo = j0 - 9, hi = j0 + 9;
+  const f = (j) => mod(sunLon(j) - lon + 180, 360) - 180;
+  for (let i = 0; i < 60; i++) { const m = (lo + hi) / 2; if (f(m) < 0) lo = m; else hi = m; }
+  const t = msOf((lo + hi) / 2);
+  termCache.set(key, t);
+  return t;
+}
+const JIE = [285, 315, 345, 15, 45, 75, 105, 135, 165, 195, 225, 255]; // Jan..Dec
+const jieBranch = (lon) => mod(2 + mod(lon - 315, 360) / 30, 12);
+function jieAround(ms) {
+  const y = new Date(ms).getUTCFullYear();
+  const out = [];
+  for (const yy of [y - 1, y, y + 1]) for (const l of JIE) out.push({ t: termTime(yy, l), lon: l });
+  return out.sort((a, b) => a.t - b.t);
+}
+/** Chinese (solar) year containing instant ms: changes at 立春. */
+function chineseYear(ms) {
+  const y = new Date(ms).getUTCFullYear();
+  return ms >= termTime(y, 315) ? y : y - 1;
+}
+function yearPillarOf(cy) { return [mod(cy - 4, 10), mod(cy - 4, 12)]; }
+function monthStem(yearStem, branch) { return mod(mod(yearStem, 5) * 2 + 2 + mod(branch - 2, 12), 10); }
+function monthAt(ms) {
+  const js = jieAround(ms);
+  let i = js.length - 1;
+  while (js[i].t > ms) i--;
+  const b = jieBranch(js[i].lon);
+  const ys = yearPillarOf(chineseYear(ms))[0];
+  return { stem: monthStem(ys, b), branch: b, start: js[i].t, end: js[i + 1].t, prevJie: js[i].t, nextJie: js[i + 1].t };
+}
+function jdn(y, m, d) {
+  const a = Math.floor((14 - m) / 12), yy = y + 4800 - a, mm = m + 12 * a - 3;
+  return d + Math.floor((153 * mm + 2) / 5) + 365 * yy + Math.floor(yy / 4) - Math.floor(yy / 100) + Math.floor(yy / 400) - 32045;
+}
+function dayPillarOfDate(y, m, d) { const i = mod(jdn(y, m, d) + 49, 60); return [i % 10, i % 12]; }
+function eqTimeMin(y, m, d) {
+  const n = jdn(y, m, d) - jdn(y, 1, 1) + 1;
+  const B = (2 * Math.PI * (n - 81)) / 365;
+  return 9.87 * Math.sin(2 * B) - 7.53 * Math.cos(B) - 1.5 * Math.sin(B);
+}
+
+// ------------------------------------------------------------ natal chart
+/**
+ * @param {object} p {name, date:'YYYY-MM-DD', time:'HH:MM'|null, gender:'F'|'M', tz:+7, longitude:null|number, ziNextDay:true}
+ */
+function natalChart(p) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(p.date || '');
+  if (!m) throw new Error('date ต้องเป็น YYYY-MM-DD');
+  const [Y, M, D] = [+m[1], +m[2], +m[3]];
+  if (M < 1 || M > 12 || D < 1 || D > 31 || Y < 1900 || Y > 2100) throw new Error('วันที่ไม่ถูกต้อง (รองรับปี 1900–2100)');
+  if (!['F', 'M'].includes(p.gender)) throw new Error('gender ต้องเป็น F หรือ M');
+  const tz = p.tz ?? 7;
+  const hasTime = !!p.time;
+  let hh = 12, mi = 0;
+  if (hasTime) {
+    const t = /^(\d{1,2}):(\d{2})$/.exec(p.time);
+    if (!t || +t[1] > 23 || +t[2] > 59) throw new Error('time ต้องเป็น HH:MM');
+    hh = +t[1]; mi = +t[2];
+  }
+  const check = new Date(Date.UTC(Y, M - 1, D));
+  if (check.getUTCMonth() !== M - 1) throw new Error('วันที่ไม่มีอยู่จริง');
+  const birthMs = Date.UTC(Y, M - 1, D, hh, mi) - tz * 3600000; // real instant
+  // local (optionally true solar) clock for day & hour pillars
+  let corr = 0;
+  if (hasTime && typeof p.longitude === 'number') corr = (p.longitude - tz * 15) * 4 + eqTimeMin(Y, M, D);
+  const localMs = Date.UTC(Y, M - 1, D, hh, mi) + corr * 60000;
+  const L = new Date(localMs);
+  let dy = L.getUTCFullYear(), dm = L.getUTCMonth() + 1, dd = L.getUTCDate();
+  const lh = L.getUTCHours();
+  if (hasTime && lh === 23 && p.ziNextDay !== false) {
+    const n = new Date(Date.UTC(dy, dm - 1, dd + 1)); dy = n.getUTCFullYear(); dm = n.getUTCMonth() + 1; dd = n.getUTCDate();
+  }
+  const cy = chineseYear(birthMs);
+  const [ys, yb] = yearPillarOf(cy);
+  const mo = monthAt(birthMs);
+  const [ds, db] = dayPillarOfDate(dy, dm, dd);
+  let hour = null;
+  if (hasTime) { const hb = Math.floor((lh + 1) / 2) % 12; hour = [mod(mod(ds, 5) * 2 + hb, 10), hb]; }
+  const pillars = { year: [ys, yb], month: [mo.stem, mo.branch], day: [ds, db], hour };
+  // luck pillars
+  const yangYear = ys % 2 === 0;
+  const forward = (yangYear && p.gender === 'M') || (!yangYear && p.gender === 'F');
+  const days = (forward ? mo.nextJie - birthMs : birthMs - mo.prevJie) / 86400000;
+  const YEAR = 365.2422 * 86400000;
+  const luckStart = birthMs + (days / 3) * YEAR;
+  const luck = [];
+  for (let k = 1; k <= 10; k++) {
+    const s = mod(mo.stem + (forward ? k : -k), 10), b = mod(mo.branch + (forward ? k : -k), 12);
+    const st = luckStart + (k - 1) * 10 * YEAR;
+    luck.push({ stem: s, branch: b, pillar: pillar(s, b), start: st, end: st + 10 * YEAR });
+  }
+  const strength = strengthOf(pillars);
+  return { input: { ...p, tz }, birthMs, solarCorrectionMin: r2(corr), hasTime, pillars, dayMaster: ds, forward, luckStart, luck, ...strength };
+}
+
+const gen = (e) => (e + 1) % 5, ctrl = (e) => (e + 2) % 5; // wood→fire, wood→earth
+function roles(dmEl) {
+  return { companion: dmEl, resource: mod(dmEl - 1, 5), output: gen(dmEl), wealth: ctrl(dmEl), officer: mod(dmEl - 2, 5) };
+}
+function strengthOf(P) {
+  const dmEl = S_EL[P.day[0]];
+  const R = roles(dmEl);
+  const sup = new Set([R.companion, R.resource]);
+  let S = 0, T = 0;
+  const add = (el, w) => { T += w; if (sup.has(el)) S += w; };
+  for (const k of ['year', 'month', 'hour']) if (P[k]) add(S_EL[P[k][0]], 1);
+  for (const k of ['year', 'month', 'day', 'hour']) {
+    if (!P[k]) continue;
+    const mult = k === 'month' ? 2.5 : k === 'day' ? 1.2 : 1;
+    for (const [s, w] of HIDDEN[P[k][1]]) add(S_EL[s], w * mult);
+  }
+  const ratio = S / T;
+  const dist = [0, 0, 0, 0, 0];
+  dist[dmEl] += 1;
+  for (const k of ['year', 'month', 'hour']) if (P[k]) dist[S_EL[P[k][0]]] += 1;
+  for (const k of ['year', 'month', 'day', 'hour']) {
+    if (!P[k]) continue;
+    const mult = k === 'month' ? 2.5 : k === 'day' ? 1.2 : 1;
+    for (const [s, w] of HIDDEN[P[k][1]]) dist[S_EL[s]] += w * mult;
+  }
+  const dT = dist.reduce((a, b) => a + b, 0);
+  const elementPct = dist.map((x) => Math.round((x / dT) * 1000) / 10);
+  const level = ratio < 0.42 ? 'weak' : ratio > 0.58 ? 'strong' : ratio < 0.5 ? 'balanced-weak' : 'balanced-strong';
+  const weakTab = { resource: 2, companion: 1, output: -1, wealth: -1, officer: -1 };
+  const strongTab = { output: 1, wealth: 2, officer: 1, resource: -1, companion: -1 };
+  const tab = level.includes('weak') ? weakTab : strongTab;
+  const scale = level.startsWith('balanced') ? 0.6 : 1;
+  const fav = [0, 0, 0, 0, 0];
+  for (const [role, el] of Object.entries(R)) fav[el] = r2(tab[role] * scale);
+  const order = [...EL.keys()].sort((a, b) => fav[b] - fav[a]);
+  return {
+    strength: { level, supportRatio: r2(ratio) }, roles: R, fav, elementPct,
+    useful: order.filter((e) => fav[e] > 0).map((e) => EL[e]),
+    unfavorable: order.filter((e) => fav[e] < 0).map((e) => EL[e]),
+  };
+}
+
+// ------------------------------------------------------------ period scoring (me)
+const CLASH_NAME = { '2,8': 'เสือชนลิง', '3,9': 'กระต่ายชนไก่', '4,10': 'มังกรชนหมา', '0,6': 'หนูชนม้า', '1,7': 'วัวชนแพะ', '5,11': 'งูชนหมู' };
+const clashName = (a, b) => CLASH_NAME[[Math.min(a, b), Math.max(a, b)].join(',')] + ' (' + BRANCHES[a] + BRANCHES[b] + '沖)';
+const ROLE_TH = { resource: 'ธาตุหนุน', companion: 'ธาตุเพื่อน', output: 'ธาตุแสดงออก', wealth: 'ธาตุเงิน', officer: 'ธาตุงาน/กดดัน' };
+const NAT_TH = { year: 'ปีเกิด', month: 'เดือนเกิด', day: 'วันเกิด', hour: 'ชั่วโมงเกิด' };
+const HEALTH_CODES = new Set(['CLASH', 'PUNISH', 'HARM', 'FUYIN', 'FANYIN']);
+
+/** Score one period pillar (s,b) for chart C, given other active branches ctx [{name, branch}] */
+function scorePeriod(C, s, b, ctx = []) {
+  const F = [];
+  const add = (code, th, w, kind = code) => { if (w) F.push({ code, kind, th, w: r2(w) }); };
+  const roleOf = (el) => Object.keys(C.roles).find((k) => C.roles[k] === el);
+  const se = S_EL[s], be = B_EL[b];
+  add('EL_STEM', `${EL_TH[EL[se]]} (${ROLE_TH[roleOf(se)]})`, C.fav[se]);
+  add('EL_BRANCH', `${EL_TH[EL[be]]} (${ROLE_TH[roleOf(be)]})`, C.fav[be]);
+  const nat = Object.entries(C.pillars).filter(([, v]) => v).map(([k, v]) => ({ name: k, s: v[0], b: v[1] }));
+  const allB = [...nat.map((n) => n.b), ...ctx.map((c) => c.branch)];
+  for (const n of nat) {
+    if (mod(b - n.b, 12) === 6) {
+      const w = n.name === 'day' ? -2 : EARTH_B.has(b) && EARTH_B.has(n.b) ? -0.5 : -1;
+      add('CLASH', `${clashName(b, n.b)} กับ${NAT_TH[n.name]}`, w);
+    }
+    if (HARM.some(([x, y]) => (x === b && y === n.b) || (y === b && x === n.b))) add('HARM', `害 กับ${NAT_TH[n.name]}`, -0.5);
+    if ((b === 0 && n.b === 3) || (b === 3 && n.b === 0)) add('PUNISH', `子卯刑 กับ${NAT_TH[n.name]}`, -1);
+    if (b === n.b && SELF_P.has(b)) add('PUNISH', `${BRANCHES[b]}${BRANCHES[b]} ลงโทษตัวเอง`, -0.5);
+    for (const [x, y, el] of SIX) {
+      if ((x === b && y === n.b) || (y === b && x === n.b)) add('HARMONY', `${BRANCHES[x]}${BRANCHES[y]}合 กับ${NAT_TH[n.name]}`, 0.5 + C.fav[el] * 0.5);
+    }
+  }
+  for (const c of ctx) {
+    if (mod(b - c.branch, 12) === 6) add('CLASH', `${clashName(b, c.branch)} กับ${c.name}`, EARTH_B.has(b) && EARTH_B.has(c.branch) ? -0.4 : -0.75);
+    if (HARM.some(([x, y]) => (x === b && y === c.branch) || (y === b && x === c.branch))) add('HARM', `害 กับ${c.name}`, -0.25);
+  }
+  const others = new Set(allB);
+  for (const [set, el] of TRINE) {
+    if (!set.includes(b)) continue;
+    const n = set.filter((x) => x !== b && others.has(x)).length;
+    if (n === 2) add('TRINE', `${set.map((x) => BRANCHES[x]).join('')} ${EL_TH[EL[el]]}ครบ`, C.fav[el] * 1.0);
+    else if (n === 1) add('TRINE', `ครึ่งวง${EL_TH[EL[el]]}`, C.fav[el] * 0.25);
+  }
+  for (const [set, el] of DIREC) {
+    if (set.includes(b) && set.filter((x) => x !== b && others.has(x)).length === 2) add('DIREC', `${set.map((x) => BRANCHES[x]).join('')} ${EL_TH[EL[el]]}รวมทิศ`, C.fav[el] * 1.0);
+  }
+  for (const set of PUNISH3) {
+    if (!set.includes(b)) continue;
+    const n = set.filter((x) => x !== b && others.has(x)).length;
+    if (n === 2) add('PUNISH', `${set.map((x) => BRANCHES[x]).join('')}三刑`, -2);
+    else if (n === 1) add('PUNISH', 'ครึ่ง三刑', -0.5);
+  }
+  const dm = C.dayMaster;
+  const dmClash = (x) => (dm < 4 && x === dm + 6) || (dm >= 6 && x === dm - 6);
+  if (mod(s - dm, 10) === 5) add('COMBINE_DM', `${STEMS[dm]}${STEMS[s]}合 โอกาสเงิน/คน`, 0.5);
+  if (dmClash(s)) add('CLASH', `${STEMS[dm]}${STEMS[s]}冲 กับตัวคุณ`, -1);
+  const [ds, db] = C.pillars.day;
+  if (s === ds && b === db) add('FUYIN', 'ซ้ำกับเสาวันเกิด (伏吟)', -1);
+  else for (const n of nat) if (n.name !== 'day' && n.s === s && n.b === b) add('FUYIN', `ซ้ำกับ${NAT_TH[n.name]} (伏吟)`, -0.5);
+  if (dmClash(s) && mod(b - db, 12) === 6) add('FANYIN', 'ก้านและกิ่งชนวันเกิด (反吟)', -1);
+  return { score: r2(F.reduce((a, f) => a + f.w, 0)), factors: F };
+}
+const noteOf = (F) => {
+  const out = [];
+  for (const f of [...F].sort((a, b) => Math.abs(b.w) - Math.abs(a.w))) {
+    if (Math.abs(f.w) < 0.75 || out.includes(f.th)) continue;
+    out.push(f.th); if (out.length === 2) break;
+  }
+  return out.length ? out.join(' · ') : 'ไม่มีแรงเด่น';
+};
+const healthRisk = (C, F, s, b) => {
+  let r = F.filter((f) => HEALTH_CODES.has(f.code) && f.w < 0).reduce((a, f) => a - f.w, 0);
+  const off = C.roles.officer;
+  if (C.strength.level.includes('weak') && (S_EL[s] === off || B_EL[b] === off)) r += 0.5;
+  return r2(r);
+};
+
+// ------------------------------------------------------------ world (person-independent, 2026–2050)
+const WORLD_YEARS = { from: 2026, to: 2050 };
+const WD_Y = { 2026: 'd', 2027: 'g', 2028: 'm', 2029: 'd', 2030: 'm', 2031: 'm', 2032: 'd', 2033: 'g', 2034: 'm', 2035: 'g', 2036: 'm', 2037: 'd', 2038: 'm', 2039: 'g', 2040: 'd', 2041: 'd', 2042: 'm', 2043: 'd', 2044: 'm', 2045: 'g', 2046: 'm', 2047: 'g', 2048: 'm', 2049: 'm', 2050: 'd' };
+const WD_GOOD = { 2026: 'เทคโนโลยี พลังงานใหม่', 2027: 'ฟื้นตัว การศึกษา', 2028: 'การค้าคล่อง', 2029: 'ผลผลิต อาหาร', 2030: 'อุตสาหกรรม เครื่องจักร', 2031: 'เงินหมุนคล่อง', 2032: 'ขนส่ง การค้า', 2033: 'เก็บเกี่ยว ฟื้นตัว', 2034: 'สุขภาพ สิ่งแวดล้อมเติบโต', 2035: 'เกษตร ความร่วมมือ', 2036: 'พลังงานใหม่', 2037: 'นวัตกรรม', 2038: 'ฟื้นฟูมั่นคง', 2039: 'อาหาร ที่อยู่อาศัย', 2040: 'เทคโนโลยีเครื่องกล', 2041: 'ความแม่นยำ ศิลปะ', 2042: 'การค้าไหลเวียน', 2043: 'ปิดยุคเก่า ความคิดใหม่', 2044: 'เริ่มยุคใหม่ ไอเดียใหม่', 2045: 'วางระบบใหม่', 2046: 'นวัตกรรมเติบโต', 2047: 'ศิลปะ วัฒนธรรม', 2048: 'อาหาร อสังหา', 2049: 'ฟื้นตัว', 2050: 'เทคโนโลยี' };
+const WD_WATCH = { 2026: 'ร้อนจัด ขัดแย้งปะทุ', 2027: 'แล้ง ความร้อนสะสม', 2028: 'ตลาดแกว่ง แผ่นดินไหว', 2029: 'การเงินตึง หนี้ สงครามการค้า', 2030: 'แย่งอำนาจ เขตแดน', 2031: 'ฟองสบู่ น้ำท่วม', 2032: 'น้ำท่วม พายุ สภาพคล่องตึง', 2033: 'ฝนหนัก ดินชื้น', 2034: 'ผู้นำ/ระบบเปลี่ยน ตึงเครียด', 2035: 'ความเห็นแตกแยก', 2036: 'ไฟป่า ดินรวน', 2037: 'ร้อนจัด แล้ง ขัดแย้ง', 2038: 'แผ่นดินไหว แล้ง', 2039: 'ดินถล่ม ระบบเฉื่อย', 2040: 'ขัดแย้ง อาวุธ การเงินตึง', 2041: 'แตกแยก วิกฤติการเงิน', 2042: 'น้ำท่วม ดินถล่ม', 2043: 'น้ำท่วม รอยต่อยุคสั่นคลอน', 2044: 'ระบบเก่าปรับตัวไม่ทัน', 2045: 'เศรษฐกิจฝืด', 2046: 'ไฟป่า ขัดแย้ง', 2047: 'อารมณ์สังคมร้อน', 2048: 'แผ่นดินไหว', 2049: 'แล้ง ความร้อน', 2050: 'ทองชนไฟ ตลาด/การเมืองผันผวน' };
+const W_GOOD = ['เกษตร สุขภาพ เติบโต', 'เทคโนโลยี พลังงาน นวัตกรรม', 'อาหาร อสังหา ฟื้นตัว', 'อุตสาหกรรม ความแม่นยำ', 'การค้า ขนส่ง เงินหมุน'];
+const W_WATCH = ['ตึงเครียดการเมือง ผู้นำ/ระบบเปลี่ยน', 'ร้อนจัด ไฟป่า ขัดแย้ง', 'แผ่นดินไหว ดินถล่ม ระบบเฉื่อย', 'การเงินตึง ขัดแย้ง', 'น้ำท่วม สภาพคล่องตึง'];
+const WTAG = { g: 'low', m: 'mid', d: 'high' };
+const LABEL_TH = {
+  me: { support: 'หนุน', neutral: 'กลาง', caution: 'ระวัง' }, world: { low: 'ต่ำ', mid: 'กลาง', high: 'สูง' },
+  stock: { buy: 'เหมาะ', dca: 'ทยอย', rest: 'พัก' }, gold: { add: 'เพิ่ม', hold: 'ถือ' },
+  business: { grow: 'ขยายได้', steady: 'ทำต่อ', hold: 'ประคอง' }, health: { good: 'ดี', watch: 'ดูแล', caution: 'ระวัง' },
+  home: { move: 'ย้ายได้', forced: 'มีแรงย้าย', improve: 'ปรับปรุงบ้าน', stay: 'อยู่ที่เดิม' },
+  travel: { go: 'เดินทางดี', careful: 'ระวังเดินทาง', normal: 'ปกติ' },
+  work: { rise: 'เด่น', steady: 'ปกติ', pressure: 'กดดัน' }, money: { in: 'เงินเข้า', keep: 'เก็บได้', leak: 'ระวังรั่ว' },
+  bargain: { star: '★ดี', dca: 'ทยอย', small: 'เล็ก', none: '–' },
+};
+function worldYear(cy) {
+  const t = WD_Y[cy];
+  return t ? { tag: WTAG[t], good_th: WD_GOOD[cy], watch_th: WD_WATCH[cy] } : null;
+}
+function worldMonth(ms, mb, ys, yb, ytag) {
+  let w = { low: 0, mid: 1, high: 1.5 }[ytag];
+  const mse = S_EL[ms], mbe = B_EL[mb], yel = new Set([S_EL[ys], B_EL[yb]]);
+  if (mse === mbe) w += [1, 3, 4].includes(mse) ? 1.25 : 0.5;
+  if (yel.has(mse)) w += 0.5;
+  if (yel.has(mbe)) w += 0.5;
+  for (const e of [mse, mbe]) { if (e === 3 || e === 4) w += 0.5; if (e === 1 && yel.has(1)) w += 0.5; if (e === 4 && yel.has(1)) w -= 0.5; }
+  if (mod(mb - yb, 12) === 6) w += EARTH_B.has(mb) && EARTH_B.has(yb) ? 0.5 : 1;
+  else if (HARM.some(([x, y]) => (x === mb && y === yb) || (y === mb && x === yb))) w += 0.5;
+  else if ((mb === 10 && [1, 7].includes(yb)) || ([1, 7].includes(mb) && yb === 10) || (mb === 0 && yb === 3)) w += 0.5;
+  return { tag: w < 1 ? 'low' : w < 2.5 ? 'mid' : 'high', score: r2(w), good_th: W_GOOD[mse], watch_th: W_WATCH[mbe] };
+}
+
+// ------------------------------------------------------------ topics
+const meTag = (sc, hi, lo) => (sc >= hi ? 'support' : sc <= lo ? 'caution' : 'neutral');
+function topics(C, me, world, s, b, F) {
+  const wt = world?.tag ?? 'mid';
+  const stock = me === 'caution' ? 'rest' : me === 'support' && wt !== 'high' ? 'buy' : 'dca';
+  const gold = wt === 'high' || S_EL[s] === 3 || B_EL[b] === 3 ? 'add' : 'hold';
+  const wealthIn = S_EL[s] === C.roles.wealth || B_EL[b] === C.roles.wealth;
+  const business = me === 'caution' ? 'hold' : me === 'support' || (wealthIn && C.fav[C.roles.wealth] >= 0) ? 'grow' : 'steady';
+  const risk = healthRisk(C, F, s, b);
+  const health = risk >= 2 ? 'caution' : risk >= 1 ? 'watch' : 'good';
+  const hNotes = F.filter((f) => HEALTH_CODES.has(f.code) && f.w < 0).map((f) => f.th);
+  const has = (role) => S_EL[s] === C.roles[role] || B_EL[b] === C.roles[role];
+  const work = me === 'caution' || (has('officer') && C.fav[C.roles.officer] < 0 && me !== 'support') ? 'pressure'
+    : me === 'support' && (has('officer') || has('resource') || has('companion')) ? 'rise' : 'steady';
+  const money = me === 'caution' ? 'leak' : me === 'support' && (has('wealth') || has('output') || has('resource')) ? 'in' : 'keep';
+  // home & travel: clash with day/month branch (home, family), 驛馬 travel horse, 六合 with day branch
+  const P = C.pillars;
+  const horseOf = (x) => ([8, 0, 4].includes(x) ? 2 : [2, 6, 10].includes(x) ? 8 : [5, 9, 1].includes(x) ? 11 : 5);
+  const clashW = (nb) => mod(b - nb, 12) === 6;
+  const homeClash = clashW(P.day[1]) || clashW(P.month[1]);
+  const isHorse = b === horseOf(P.day[1]) || b === horseOf(P.year[1]);
+  const sixDay = SIX.some(([x, y]) => (x === b && y === P.day[1]) || (y === b && x === P.day[1]));
+  const resIn = B_EL[b] === C.roles.resource;
+  const hn = [];
+  if (homeClash) hn.push(clashW(P.day[1]) ? 'ชนเสาวันเกิด (ตำแหน่งบ้านและคู่ครอง)' : 'ชนเสาเดือนเกิด (ตำแหน่งครอบครัวและที่ทำงาน)');
+  if (isHorse) hn.push(`ม้าเดินทาง 驛馬 (${BRANCHES[b]})`);
+  if (sixDay) hn.push('รวมกับเสาวันเกิด (บ้านอบอุ่น มีคนเข้ามา)');
+  const home = homeClash || isHorse ? (me === 'caution' ? 'forced' : 'move') : sixDay || (resIn && me === 'support') ? 'improve' : 'stay';
+  const dayClash = clashW(P.day[1]);
+  const travel = isHorse || clashW(P.year[1]) ? (me === 'caution' || (dayClash && health === 'caution') ? 'careful' : 'go')
+    : dayClash && health === 'caution' ? 'careful' : 'normal';
+  const lab = (k, v) => ({ code: v, label_th: LABEL_TH[k][v] });
+  return { home: { ...lab('home', home), notes_th: hn }, travel: { ...lab('travel', travel), notes_th: hn.filter((x) => !x.startsWith('รวม')) }, work: lab('work', work), money: lab('money', money), stock: lab('stock', stock), gold: lab('gold', gold), business: lab('business', business), health: { ...lab('health', health), risk, notes_th: hNotes.slice(0, 3) } };
+}
+
+// ------------------------------------------------------------ main API
+const iso = (ms, tz) => {
+  const d = new Date(ms + tz * 3600000).toISOString().slice(0, 16);
+  const sign = tz >= 0 ? '+' : '-', a = Math.abs(tz);
+  return `${d}${sign}${String(Math.floor(a)).padStart(2, '0')}:${String(Math.round((a % 1) * 60)).padStart(2, '0')}`;
+};
+const luckAt = (C, ms) => C.luck.find((l) => l.start <= ms && ms < l.end) ?? null;
+const THRESH = { annual: { hi: 1.5, lo: -2.5, luckWeight: 0.25 }, monthly: { hi: 0.5, lo: -2.0 }, base: { support: 0.7, neutral: 0, caution: -0.7 } };
+
+/** Build full reading for years [from, to] (Chinese years, start at 立春). */
+function reading(person, { from = 2026, to = 2050 } = {}) {
+  const C = natalChart(person);
+  const tz = C.input.tz;
+  const annual = [], monthly = [];
+  for (let cy = from; cy <= to; cy++) {
+    const [ys, yb] = yearPillarOf(cy);
+    const yStart = termTime(cy, 315), yEnd = termTime(cy + 1, 315);
+    const mid = yStart + (yEnd - yStart) / 2;
+    const L = luckAt(C, mid);
+    const ctxY = L ? [{ name: 'วัยจร', branch: L.branch }] : [];
+    const ly = L ? scorePeriod(C, L.stem, L.branch) : { score: 0 };
+    const y = scorePeriod(C, ys, yb, ctxY);
+    const yScore = r2(y.score + THRESH.annual.luckWeight * ly.score);
+    const yTag = meTag(yScore, THRESH.annual.hi, THRESH.annual.lo);
+    const wy = worldYear(cy);
+    annual.push({ year: cy, pillar: pillar(ys, yb), animal: ANIMAL[yb], elements_th: EL_TH[EL[S_EL[ys]]] + '+' + EL_TH[EL[B_EL[yb]]],
+      start: iso(yStart, tz), end: iso(yEnd, tz), luck_pillar: L?.pillar ?? null,
+      me: { tag: yTag, label_th: LABEL_TH.me[yTag], score: yScore, note_th: noteOf(y.factors), factors: y.factors },
+      world: wy && { ...wy, label_th: LABEL_TH.world[wy.tag] },
+      topics: topics(C, yTag, wy, ys, yb, y.factors) });
+    let t = yStart;
+    for (let i = 0; i < 12; i++) {
+      const mo = monthAt(t + 60000);
+      const Lm = luckAt(C, mo.start + (mo.end - mo.start) / 2);
+      const ctx = [{ name: 'ปีนี้', branch: yb }, ...(Lm ? [{ name: 'วัยจร', branch: Lm.branch }] : [])];
+      const m = scorePeriod(C, mo.stem, mo.branch, ctx);
+      const sc = r2(m.score + THRESH.base[yTag]);
+      const tag = meTag(sc, THRESH.monthly.hi, THRESH.monthly.lo);
+      const wm = wy ? worldMonth(mo.stem, mo.branch, ys, yb, wy.tag) : null;
+      const mid2 = new Date(mo.start + tz * 3600000 + 10 * 86400000);
+      monthly.push({ id: `${cy}-${String(i + 1).padStart(2, '0')}`, chinese_year: cy, month_no: i + 1,
+        label_th: `${MONTH_TH[mid2.getUTCMonth()]} ${mid2.getUTCFullYear()}`, start: iso(mo.start, tz), end: iso(mo.end, tz),
+        year_pillar: pillar(ys, yb), month_pillar: pillar(mo.stem, mo.branch), luck_pillar: Lm?.pillar ?? null,
+        me: { tag, label_th: LABEL_TH.me[tag], score: sc, note_th: noteOf(m.factors), factors: m.factors },
+        world: wm && { ...wm, label_th: LABEL_TH.world[wm.tag] },
+        topics: topics(C, tag, wm, mo.stem, mo.branch, m.factors) });
+      t = mo.end;
+    }
+  }
+  // bargain signal (annual)
+  for (let i = 0; i < annual.length; i++) {
+    const a = annual[i], w = a.world?.tag, pw = annual[i - 1]?.world?.tag, p2 = annual[i - 2]?.world?.tag, me = a.me.tag;
+    let v = 'none';
+    if (w) {
+      if (me === 'support' && (w === 'high' || (pw === 'high' && p2 === 'high'))) v = 'star';
+      else if ((pw === 'high' && me !== 'caution') || (w === 'high' && me === 'neutral')) v = 'dca';
+      else if (w === 'high' && me === 'caution') v = 'small';
+    }
+    a.topics.bargain = { code: v, label_th: LABEL_TH.bargain[v] };
+  }
+  const P = C.pillars;
+  return {
+    engine: VERSION,
+    disclaimer_th: 'อ่านเชิงสัญลักษณ์ตามหลักปาจื้อ ไม่ใช่คำทำนายเหตุการณ์จริง ไม่ใช่คำแนะนำการลงทุนหรือการแพทย์',
+    person: { name: person.name ?? null, gender: person.gender, date: person.date, time: person.time ?? null, tz, longitude: person.longitude ?? null },
+    natal: {
+      pillars: { year: pillar(...P.year), month: pillar(...P.month), day: pillar(...P.day), hour: P.hour ? pillar(...P.hour) : null },
+      day_master: STEMS[C.dayMaster] + ' ' + EL_TH[EL[S_EL[C.dayMaster]]] + (C.dayMaster % 2 ? 'หยิน' : 'หยาง'),
+      strength: C.strength, useful: C.useful, unfavorable: C.unfavorable,
+      favorability: Object.fromEntries(EL.map((e, i) => [e, C.fav[i]])),
+      elements_pct: Object.fromEntries(EL.map((e, i) => [e, C.elementPct[i]])),
+      roles: Object.fromEntries(Object.entries(C.roles).map(([r, e]) => [r, { element: EL[e], pct: C.elementPct[e] }])),
+      solar_correction_min: C.solarCorrectionMin, has_time: C.hasTime,
+      chinese_year: chineseYear(C.birthMs), horse_branch: BRANCHES[[8, 0, 4].includes(C.pillars.day[1]) ? 2 : [2, 6, 10].includes(C.pillars.day[1]) ? 8 : [5, 9, 1].includes(C.pillars.day[1]) ? 11 : 5],
+      luck_direction: C.forward ? 'forward' : 'reverse', luck_start: iso(C.luckStart, tz),
+      luck_pillars: C.luck.map((l) => {
+        const sc = scorePeriod(C, l.stem, l.branch).score;
+        const tag = sc >= 1.5 ? 'support' : sc <= -1.5 ? 'caution' : 'neutral';
+        return { pillar: l.pillar, start: iso(l.start, tz), end: iso(l.end, tz), score: r2(sc), tag, label_th: LABEL_TH.me[tag] };
+      }),
+    },
+    annual, monthly,
+  };
+}
+
+/** Find the monthly row for an instant (ms) inside a reading. */
+function monthFor(R, ms) {
+  return R.monthly.find((m) => Date.parse(m.start) <= ms && ms < Date.parse(m.end)) ?? null;
+}
+
+{
+// ---------------- detailed text content ----------------
+const PURPOSE = 'จัดทำขึ้นเพื่อเป็นศาสตร์ดูดวงพื้นฐานตามหลักปาจื้อ (八字) ใช้เป็นแนวทางวางจังหวะชีวิตด้านการงาน อาชีพ เงิน สุขภาพ ธุรกิจ ที่อยู่อาศัย การเดินทาง และการออมลงทุน ของตัวเองและคนใกล้ตัว เทียบกับจังหวะของโลก ควรใช้วิจารณญาณในการอ่าน ไม่ใช่คำทำนายอนาคตและไม่ได้ตัดสินใจแทนคุณ';
+const TOPICS = [['work', 'การงาน อาชีพ'], ['money', 'เงิน'], ['health', 'สุขภาพ'], ['business', 'ธุรกิจ'], ['home', 'ที่อยู่อาศัย'], ['travel', 'เดินทาง'], ['gold', 'ทอง'], ['stock', 'หุ้น']];
+const TSHORT = { work: 'การงาน', money: 'เงิน', health: 'สุขภาพ', business: 'ธุรกิจ', home: 'ที่อยู่', travel: 'เดินทาง', gold: 'ทอง', stock: 'หุ้น' };
+const TOPIC_ICON = { work: '💼', money: '💰', health: '🫀', business: '🏪', home: '🏠', travel: '✈️', gold: '🪙', stock: '📈' };
+const TIP = {
+  work: { rise: 'จังหวะเด่น ขอเลื่อนตำแหน่ง สมัครงานใหม่ หรือเปิดบทบาทใหม่ได้', steady: 'ทำงานเดิมให้ดี เก็บผลงานและความเชื่อใจ', pressure: 'งานกดดัน คุมพลัง ไม่รับงานเพิ่ม ไม่ลาออกกะทันหัน' },
+  money: { in: 'เงินเข้าดี เพิ่มยอดออมได้', keep: 'รายรับปกติ ออมตามแผนเดิม', leak: 'ระวังรายจ่ายไม่คาดคิด ถือเงินสด ไม่ให้ยืม ไม่ค้ำประกัน' },
+  health: { good: 'ไม่มีแรงชนเด่น ดูแลตามปกติ', watch: 'มีแรงชนบ้าง นอนให้พอ อย่าหักโหม', caution: 'แรงชนเยอะ ระวังอุบัติเหตุ ตรวจสุขภาพ' },
+  business: { grow: 'เพิ่มสินค้า เปิดช่องทางใหม่ ขยายได้', steady: 'ทำของเดิมให้มั่นคง ปรับระบบ', hold: 'ประคอง ไม่ลงทุนเพิ่ม ลดสต็อก' },
+  home: { move: 'มีจังหวะย้าย ถ้าคิดจะย้ายหรือซื้อบ้าน ปีนี้เปิดทาง', forced: 'มีแรงให้ต้องย้ายหรือเปลี่ยน แต่ดวงไม่หนุน อย่ารีบ เตรียมแผนสำรอง', improve: 'อยู่ที่เดิม ปรับปรุงบ้าน ซื้อของเข้าบ้าน ครอบครัวอบอุ่น', stay: 'อยู่ที่เดิมดีกว่า ไม่มีแรงให้ย้าย' },
+  travel: { go: 'เดินทาง ดูงาน เรียนต่อ เที่ยวไกลได้ผลดี', careful: 'เดินทางได้แต่ระวังอุบัติเหตุ เอกสาร และของหาย', normal: 'เดินทางตามปกติ' },
+  gold: { add: 'โลกผันผวนหรือธาตุทองเด่น ซื้อเพิ่มได้', hold: 'ถือของเดิม ไม่ต้องเพิ่ม' },
+  stock: { buy: 'ดวงหนุนและโลกไม่ร้อน เพิ่มได้', dca: 'ทยอยซื้อรายเดือนสม่ำเสมอ', rest: 'พักซื้อก้อนใหญ่ เก็บเงินสด' },
+};
+const EL_KEYS = ['wood', 'fire', 'earth', 'metal', 'water'];
+const EL_NAME = { wood: 'ไม้', fire: 'ไฟ', earth: 'ดิน', metal: 'ทอง', water: 'น้ำ' };
+const EL_COLOR = { wood: '#3B7D2B', fire: '#C8402A', earth: '#B07A1E', metal: '#7A7F87', water: '#2A64B0' };
+const EL_INFO = {
+  wood: { job: ['ครู อาจารย์ ติวเตอร์', 'พยาบาล บุคลากรสุขภาพ งานดูแลคน', 'เกษตร ต้นไม้ ดอกไม้ สมุนไพร', 'สิ่งพิมพ์ เขียนหนังสือ ผลิตคอนเทนต์ความรู้', 'เฟอร์นิเจอร์ไม้ เสื้อผ้า งานผ้า'], trait: 'เติบโต เมตตา ขยายตัว', body: 'ตับ ถุงน้ำดี เส้นเอ็น ตา', color: 'เขียว', dir: 'ตะวันออก', season: 'ฤดูใบไม้ผลิ' },
+  fire: { job: ['ขายออนไลน์ ไลฟ์สด สื่อโซเชียล', 'ความงาม เครื่องสำอาง แฟชั่น', 'เทคโนโลยี แอป อิเล็กทรอนิกส์', 'การสอน การพูด อบรม', 'ร้านอาหาร เครื่องดื่มร้อน พลังงาน แสงสว่าง'], trait: 'สว่าง กระตือรือร้น แสดงออก', body: 'หัวใจ การไหลเวียนเลือด ลำไส้เล็ก', color: 'แดง ส้ม ชมพู ม่วง', dir: 'ใต้', season: 'ฤดูร้อน' },
+  earth: { job: ['ร้านค้า ร้านชำ ค้าปลีก', 'อสังหาริมทรัพย์ ที่ดิน ก่อสร้าง', 'คลังสินค้า โลจิสติกส์ภาคพื้น', 'อาหาร เกษตรแปรรูป', 'บริหาร ประกัน ที่ปรึกษา งานที่ต้องการความน่าเชื่อถือ'], trait: 'มั่นคง รับฟัง เป็นศูนย์กลาง', body: 'กระเพาะ ม้าม การย่อยอาหาร', color: 'เหลือง น้ำตาล ครีม', dir: 'กลาง / ตะวันออกเฉียงเหนือ / ตะวันตกเฉียงใต้', season: 'ช่วงเปลี่ยนฤดู' },
+  metal: { job: ['การเงิน ธนาคาร บัญชี', 'เครื่องมือ เครื่องจักร วิศวกรรม', 'งานเทคนิคที่ต้องแม่นยำ ห้องผ่าตัด ทันตกรรม', 'กฎหมาย ตรวจสอบ ควบคุมคุณภาพ', 'อัญมณี ทอง เครื่องประดับ'], trait: 'เด็ดขาด แม่นยำ มีวินัย', body: 'ปอด ลำไส้ใหญ่ ผิวหนัง ทางเดินหายใจ', color: 'ขาว เงิน ทอง', dir: 'ตะวันตก', season: 'ฤดูใบไม้ร่วง' },
+  water: { job: ['การค้า นำเข้า ส่งออก', 'ขนส่ง เดินทาง ท่องเที่ยว โรงแรม', 'เครื่องดื่ม น้ำ ประมง', 'สื่อสาร ข้อมูล การตลาด', 'งานที่ต้องเคลื่อนไหวและติดต่อคนมาก'], trait: 'ลื่นไหล ฉลาด ปรับตัว', body: 'ไต กระเพาะปัสสาวะ ระบบฮอร์โมน', color: 'ดำ น้ำเงิน กรมท่า', dir: 'เหนือ', season: 'ฤดูหนาว' },
+};
+const STEM_EL = ['wood', 'wood', 'fire', 'fire', 'earth', 'earth', 'metal', 'metal', 'water', 'water'];
+const BR_EL = ['water', 'earth', 'wood', 'wood', 'earth', 'fire', 'fire', 'earth', 'metal', 'metal', 'earth', 'water'];
+const ANIMAL = ['หนู', 'วัว', 'เสือ', 'กระต่าย', 'มังกร', 'งู', 'ม้า', 'แพะ', 'ลิง', 'ไก่', 'หมา', 'หมู'];
+const DM = {
+  '甲': { img: 'ไม้ใหญ่', one: 'ตรง มีหลักการ ชอบนำ', nature: 'เหมือนต้นไม้ใหญ่ที่เติบโตตรงขึ้นฟ้า มีหลักการชัด ซื่อตรง ชอบเป็นที่พึ่งของคนอื่น', strong: 'เป็นผู้นำโดยธรรมชาติ มองระยะยาว ไม่ทิ้งงานกลางทาง คนไว้ใจ', watch: 'ดื้อ ไม่ค่อยยืดหยุ่น หักแต่ไม่ยอมงอ เมื่อถูกกดดันมักฝืนต่อจนเหนื่อย', work: 'เหมาะกับงานที่ได้วางแผนและเติบโตเป็นขั้นบันได มีตำแหน่งชัด ได้ดูแลคน', money: 'หาเงินแบบค่อยเป็นค่อยไป สะสมระยะยาวได้ดี ไม่ถนัดเก็งกำไรเร็ว', rel: 'ให้ความสำคัญกับความซื่อสัตย์ อยากเป็นคนดูแลมากกว่าถูกดูแล' },
+  '乙': { img: 'ไม้เลื้อยและดอกไม้', one: 'ปรับตัวเก่ง อ่อนโยน หาทางไปได้', nature: 'เหมือนเถาวัลย์ที่เลื้อยหาแสง อ่อนโยน ยืดหยุ่น หาทางออกได้ในที่แคบ', strong: 'ปรับตัวเก่ง เข้ากับคนง่าย ใช้เครือข่ายเป็น ละเอียดเรื่องความสวยงาม', watch: 'พึ่งคนอื่นมาก ลังเล ไม่กล้าปะทะตรงๆ เก็บความไม่พอใจ', work: 'เหมาะกับงานประสานงาน บริการ ออกแบบ งานที่อาศัยความสัมพันธ์', money: 'หาเงินผ่านเครือข่ายและความสัมพันธ์ได้ดี ควรมีระบบออมบังคับ', rel: 'อ่อนโยน ใส่ใจ ต้องการความมั่นคงทางใจจากคนใกล้ตัว' },
+  '丙': { img: 'ดวงอาทิตย์', one: 'อบอุ่น เปิดเผย กระตือรือร้น', nature: 'เหมือนดวงอาทิตย์ที่ให้แสงทุกคนเท่ากัน เปิดเผย ร่าเริง ใจกว้าง', strong: 'มีพลังดึงดูด พูดเก่ง จุดไฟให้คนอื่น ลงมือเร็ว', watch: 'ใจร้อน ทำเยอะเกินแรง เบื่อเร็ว พูดตรงจนคนน้อยใจ', work: 'เหมาะกับงานหน้าฉาก สื่อ การขาย การสอน งานที่ได้แสดงออก', money: 'หาเงินเก่งแต่ใช้เร็ว ควรตัดออมก่อนใช้', rel: 'อบอุ่น ใจดี ชอบความชัดเจน ไม่ชอบเก็บเรื่องค้างคา' },
+  '丁': { img: 'แสงเทียน', one: 'ละเอียด ใส่ใจคน มีพลังภายใน', nature: 'เหมือนแสงเทียนที่อบอุ่นและส่องเฉพาะจุด ละเอียด อ่อนไหว มีพลังภายในสูง', strong: 'ใส่ใจรายละเอียด เข้าใจความรู้สึกคน สมาธิดี มีศิลปะ', watch: 'คิดมาก อ่อนไหว เก็บความกังวล อารมณ์ขึ้นลงตามคนรอบข้าง', work: 'เหมาะกับงานที่ต้องใช้ความละเอียดและความเข้าใจคน ให้คำปรึกษา ศิลปะ เทคนิค', money: 'ใช้เงินอย่างระมัดระวัง เก็บได้ดีเมื่อมีเป้าหมายชัด', rel: 'ลึกซึ้ง จริงใจ ต้องการคนที่เข้าใจโดยไม่ต้องพูดมาก' },
+  '戊': { img: 'ภูเขา', one: 'มั่นคง น่าเชื่อถือ อดทน', nature: 'เหมือนภูเขาที่ตั้งมั่น ไม่หวั่นไหวง่าย เป็นที่พึ่งพิงของคนรอบข้าง', strong: 'อดทน รับผิดชอบสูง น่าเชื่อถือ ใจเย็นในสถานการณ์คับขัน รักษาคำพูด', watch: 'เปลี่ยนแปลงช้า เก็บความเครียดไว้คนเดียว แบกทุกอย่างจนลืมดูแลตัวเอง', work: 'เหมาะกับงานที่ต้องการความมั่นคง ความไว้ใจ และระบบ เช่น บริหาร ดูแลทรัพย์สิน งานเทคนิคที่ต้องอดทน', money: 'สะสมเก่ง ชอบความมั่นคง เหมาะกับการออมระยะยาวและทรัพย์สินจับต้องได้', rel: 'ไม่ค่อยแสดงออก แต่ซื่อสัตย์และอยู่ข้างคนที่รักเสมอ' },
+  '己': { img: 'ดินสวน', one: 'ดูแลคนเก่ง ปรับตัวดี ละเอียด', nature: 'เหมือนดินในสวนที่หล่อเลี้ยงต้นไม้ ใส่ใจ เอื้อเฟื้อ ปรับตัวตามสภาพแวดล้อม', strong: 'ดูแลคนเก่ง ละเอียด วางแผนดี ประนีประนอมเก่ง', watch: 'แบกเรื่องคนอื่น ลังเล กังวลเรื่องเล็ก ปฏิเสธไม่เป็น', work: 'เหมาะกับงานบริการ ดูแล บริหารคน ธุรการ งานที่ต้องความละเอียด', money: 'ประหยัดและเก็บเป็น แต่ระวังใช้เงินเพื่อคนอื่นมากเกิน', rel: 'เอาใจใส่ เป็นแม่บ้านพ่อบ้านของกลุ่ม' },
+  '庚': { img: 'เหล็กกล้า', one: 'เด็ดขาด กล้า ยุติธรรม', nature: 'เหมือนเหล็กกล้าและขวาน แข็งแรง ตรงไปตรงมา รักความยุติธรรม', strong: 'ตัดสินใจเด็ดขาด กล้าเผชิญปัญหา ทำงานหนักได้ รักพวกพ้อง', watch: 'แข็งเกิน พูดตรงเกิน ใจร้อน ไม่ชอบให้ใครสั่ง', work: 'เหมาะกับงานที่ต้องตัดสินใจ งานเทคนิค วิศวกรรม กฎหมาย งานที่มีความท้าทาย', money: 'กล้าลงทุน แต่ควรมีกฎตัดขาดทุนชัดเจน', rel: 'จริงใจ ปกป้องคนของตัวเอง แต่ต้องฝึกพูดให้นุ่มลง' },
+  '辛': { img: 'อัญมณี', one: 'ประณีต รักความสวยงาม มาตรฐานสูง', nature: 'เหมือนอัญมณีที่ผ่านการเจียระไน ประณีต สง่า ใส่ใจภาพลักษณ์', strong: 'มาตรฐานสูง ละเอียด รสนิยมดี วิเคราะห์เก่ง', watch: 'เปราะบางต่อคำวิจารณ์ สมบูรณ์แบบเกิน เก็บความน้อยใจ', work: 'เหมาะกับงานความงาม การเงิน ตรวจสอบคุณภาพ ออกแบบ งานที่ต้องความแม่นยำ', money: 'ชอบของดีมีคุณภาพ ควรแยกงบความสุขกับงบออมให้ชัด', rel: 'ต้องการความใส่ใจในรายละเอียดเล็กๆ และคำพูดที่สุภาพ' },
+  '壬': { img: 'มหาสมุทร', one: 'คิดกว้าง ฉลาด ชอบเคลื่อนไหว', nature: 'เหมือนแม่น้ำใหญ่และทะเล ไหลไม่หยุด คิดกว้าง เปิดรับสิ่งใหม่', strong: 'ฉลาด ไหวพริบดี ปรับตัวเร็ว มองภาพใหญ่ ชอบเรียนรู้', watch: 'ไม่อยู่นิ่ง เบื่อง่าย ทำหลายอย่างพร้อมกันจนไม่จบ', work: 'เหมาะกับงานค้าขาย การตลาด เดินทาง สื่อสาร งานที่เปลี่ยนแปลงตลอด', money: 'เงินเข้าออกเร็ว เหมาะกับการกระจายและมีระบบ', rel: 'ต้องการอิสระ ไม่ชอบถูกผูกมัดแน่นเกิน' },
+  '癸': { img: 'ฝนและน้ำค้าง', one: 'ช่างสังเกต เข้าใจคน มีจินตนาการ', nature: 'เหมือนฝนและน้ำค้างที่ซึมลึก เงียบแต่หล่อเลี้ยงทุกอย่าง ช่างสังเกต', strong: 'เข้าใจคนลึก มีจินตนาการ ความจำดี อดทนแบบเงียบๆ', watch: 'เก็บตัว กังวลเก่ง คิดแทนคนอื่นมากเกิน', work: 'เหมาะกับงานวิจัย ให้คำปรึกษา เขียน ออกแบบ งานเบื้องหลัง', money: 'เก็บเงินเงียบๆ ได้ดี ระวังความกังวลทำให้พลาดโอกาส', rel: 'อ่อนโยน ลึกซึ้ง ต้องการพื้นที่ปลอดภัยทางใจ' },
+};
+const STRENGTH = {
+  weak: ['ดวงอ่อน', 'พลังของตัวเองน้อยกว่าสิ่งแวดล้อมรอบตัว ไม่ได้แปลว่าดวงไม่ดี แต่หมายถึงคุณทำได้ดีที่สุดเมื่อมีทีม ระบบ หรือคนหนุน ช่วงที่เจอธาตุช่วยจะรู้สึกมีแรง คิดออก ลงมือแล้วได้ผล ส่วนช่วงที่เจอธาตุกดจะเหนื่อยง่ายและงานล้น จึงควรเลือกงานที่คุมจังหวะเองได้ ไม่แบกทุกอย่างคนเดียว และให้เวลาพักเป็นส่วนหนึ่งของแผน'],
+  'balanced-weak': ['กลางค่อนอ่อน', 'ดวงค่อนข้างสมดุล รับงานได้หลากหลาย แต่จะเติมพลังได้ดีเมื่อมีคนหนุนหรือได้พัก ช่วงธาตุช่วยเข้ามาจะเด่นเป็นพิเศษ'],
+  'balanced-strong': ['กลางค่อนแข็ง', 'ดวงค่อนข้างสมดุลและมีพลังของตัวเองพอสมควร รับงานท้าทายได้ แต่ต้องมีงานหรือเป้าหมายให้ระบายพลัง'],
+  strong: ['ดวงแข็ง', 'พลังของตัวเองสูง มั่นใจ พึ่งตัวเองได้ เหมาะกับการเป็นผู้นำและลงมือเอง ต้องมีงาน เป้าหมาย หรือความท้าทายให้ใช้พลัง ไม่อย่างนั้นจะดื้อหรือหงุดหงิดง่าย ช่วงที่เจอธาตุเงินและงานจะได้ผลดี'],
+};
+const ROLE = {
+  companion: { name: 'ตัวเองและเพื่อน', short: 'ความมั่นใจ เพื่อน คู่แข่ง', hi: 'มีความมั่นใจและพึ่งตัวเองได้ มีเพื่อนพ้องเยอะ แต่ต้องระวังการแข่งขันและเงินถูกแบ่ง ไม่ควรค้ำประกันหรือให้ยืมก้อนใหญ่', lo: 'ไม่ค่อยมีคนช่วยแบก ควรสร้างทีมหรือเครือข่ายไว้' },
+  resource: { name: 'ผู้หนุนและความรู้', short: 'ผู้ใหญ่ การเรียน ใบอนุญาต', hi: 'เรียนรู้ไว มีผู้ใหญ่ช่วย ความรู้และใบอนุญาตเป็นทุนสำคัญ แต่ถ้ามากเกินจะคิดเยอะ ลงมือช้า', lo: 'ต้องพึ่งตัวเองเรื่องการเรียนรู้ การได้ผู้ใหญ่ หรือคอร์สดีๆ จะเติมพลังได้มาก' },
+  output: { name: 'ฝีมือและไอเดีย', short: 'ฝีมือ ความคิดสร้างสรรค์ การขาย', hi: 'มีฝีมือและไอเดีย สอน ขาย ผลิตงานได้ดี ฝีมือแปลงเป็นเงินได้ แต่ใช้พลังเยอะ ระวังเหนื่อย', lo: 'ไม่ค่อยชอบแสดงออก ควรฝึกนำเสนอผลงานให้คนเห็น' },
+  wealth: { name: 'เงินและโอกาส', short: 'เงิน ทรัพย์สิน การค้า', hi: 'มองเห็นโอกาสทำเงิน ถนัดการค้า เงินผ่านมือเยอะ ถ้าดวงอ่อนจะแบกเงินก้อนใหญ่เหนื่อย ควรมีระบบ', lo: 'เงินไม่ได้มาง่าย ต้องสร้างจากความสม่ำเสมอและการออมเป็นระบบ' },
+  officer: { name: 'งาน กฎ และแรงกดดัน', short: 'ตำแหน่ง หัวหน้า กฎ ความรับผิดชอบ', hi: 'อยู่กับระบบและความรับผิดชอบได้ดี ได้รับความเชื่อถือ แต่แรงกดดันสูง ถ้าดวงอ่อนจะเครียดง่าย', lo: 'ไม่ชอบถูกควบคุม เหมาะกับงานที่มีอิสระ' },
+};
+const ROLE_STYLE = {
+  companion: 'งานที่ได้ทำเป็นทีม หุ้นส่วน งานแข่งขัน หรืองานที่ต้องใช้ความมั่นใจสูง',
+  resource: 'งานวิชาการ การสอน ที่ปรึกษา งานที่มีใบอนุญาตหรือความเชี่ยวชาญเฉพาะ',
+  output: 'งานสร้างสรรค์ การขาย การสอน คอนเทนต์ ฟรีแลนซ์ งานที่ได้โชว์ฝีมือ',
+  wealth: 'ค้าขาย บริหารทรัพย์สิน งานที่วัดผลด้วยยอดขายหรือกำไร',
+  officer: 'งานในองค์กร ระบบราชการหรือโรงพยาบาล งานที่มีตำแหน่ง กฎ และขั้นตอนชัด',
+};
+const ROLE_YEAR = {
+  companion: ['มีเพื่อนและพันธมิตร ความมั่นใจเพิ่ม ทำงานเป็นทีมได้ดี', 'คู่แข่งเยอะ เงินถูกแบ่ง ระวังค้ำประกันหรือให้ยืม'],
+  resource: ['มีผู้ใหญ่หนุน เรียนรู้ได้ดี สอบหรือเอกสารผ่าน บ้านและแม่เป็นที่พึ่ง', 'คิดมาก ลงมือช้า พึ่งคนอื่นเกิน'],
+  output: ['ไอเดียดี ผลงานโดดเด่น ขายของได้ ได้แสดงฝีมือ', 'ใช้พลังเยอะ เหนื่อย พูดเกินตัว ระวังขัดแย้งกับหัวหน้า'],
+  wealth: ['โอกาสเงินและการค้าดี', 'เงินเข้าแต่หนักแรง แบกภาระการเงิน ระวังลงทุนเกินตัว'],
+  officer: ['ได้ตำแหน่ง ได้รับความเชื่อถือ มีวินัย', 'งานกดดัน หัวหน้าเข้ม กฎเยอะ เครียดง่าย'],
+};
+const PILLAR_POS = {
+  year: ['เสาปี', 'รากเหง้า ครอบครัวเดิม ผู้ใหญ่ สังคมรอบตัว และวัยเด็ก (ราว 0–16 ปี)'],
+  month: ['เสาเดือน', 'พ่อแม่ พี่น้อง ที่ทำงาน สภาพแวดล้อม (ราว 17–32 ปี) เป็นเสาที่มีน้ำหนักมากที่สุดในการวัดธาตุ'],
+  day: ['เสาวัน', 'ก้านคือตัวคุณ กิ่งคือคู่ครองและบ้าน (ราว 33–48 ปี)'],
+  hour: ['เสาชั่วโมง', 'ลูก ลูกน้อง ผลงาน ความคิด และบั้นปลายชีวิต (ราว 49 ปีขึ้นไป)'],
+};
+const FX = {
+  CLASH: 'การชน คือกิ่งดินที่อยู่ตรงข้ามกัน ทำให้เกิดการเปลี่ยนแปลง เคลื่อนย้าย หรือสะดุด ถ้าชนเสาวันมักเกี่ยวกับตัวเอง บ้าน คู่ครอง และสุขภาพ',
+  HARM: 'แรงขัดเบาๆ ความไม่ลงรอยกับคนใกล้ตัว เรื่องจุกจิก',
+  PUNISH: 'แรงเสียดทาน เรื่องเอกสาร กฎหมาย สุขภาพ หรือความขัดแย้งในครอบครัว',
+  HARMONY: 'การรวม ความร่วมมือ ดีลสำเร็จ มีคนเข้ามาช่วย',
+  TRINE: 'สามประสาน ธาตุนั้นแรงขึ้นมาก ถ้าเป็นธาตุช่วยจะหนุนแรง ถ้าเป็นธาตุกดจะกดแรง',
+  DIREC: 'การรวมทิศ ธาตุนั้นแรงขึ้นมากเช่นกัน',
+  COMBINE_DM: 'ก้านรวมกับตัวคุณ มีโอกาสเรื่องเงินหรือคนเข้ามา',
+  FUYIN: 'ซ้ำกับเสาเกิด เรื่องเก่าวนกลับมา ความรู้สึกเดิมๆ หรือความเหนื่อยซ้ำ',
+  FANYIN: 'ชนสลับกับเสาวันทั้งก้านและกิ่ง เปลี่ยนแปลงกะทันหัน ควรระวังการตัดสินใจใหญ่',
+};
+const W_THEME = { wood: 'การเติบโต การศึกษา สุขภาพ เกษตร', fire: 'เทคโนโลยี สื่อ พลังงาน ความร้อนและความขัดแย้ง', earth: 'อสังหา อาหาร ความมั่นคง ภัยดินและแผ่นดินไหว', metal: 'การเงิน อุตสาหกรรม อาวุธ ความเข้มงวด', water: 'การค้า ขนส่ง สภาพคล่อง น้ำท่วม' };
+
+// ---------- guide / glossary ----------
+const GLOSS = [
+  ['พื้นฐาน', [
+    ['bazi', 'ปาจื้อ (八字)', 'ศาสตร์จีนที่แปลงวัน เดือน ปี และเวลาเกิด เป็นตัวอักษร 8 ตัว แล้วอ่านความสมดุลของ 5 ธาตุ'],
+    ['pillars', '4 เสา', 'เสาปี เสาเดือน เสาวัน เสาชั่วโมง แต่ละเสามี 2 ตัวอักษร รวม 8 ตัว ถ้าไม่ทราบเวลาเกิดจะเหลือ 3 เสา'],
+    ['stem', 'ก้านฟ้า (天干)', 'ตัวอักษรบนของแต่ละเสา มี 10 ตัว เช่น 戊 庚 壬'],
+    ['branch', 'กิ่งดิน (地支)', 'ตัวอักษรล่างของแต่ละเสา มี 12 ตัว ตรงกับนักษัตร เช่น 寅 = เสือ 卯 = กระต่าย'],
+    ['pos', 'ความหมายของตำแหน่งเสา', 'เสาปี = รากเหง้า ผู้ใหญ่ วัยเด็ก · เสาเดือน = พ่อแม่ ที่ทำงาน วัยรุ่นถึงวัยทำงาน · เสาวัน = ตัวคุณ คู่ครอง บ้าน วัยกลางคน · เสาชั่วโมง = ลูก ผลงาน บั้นปลาย'],
+    ['hidden', 'ธาตุซ่อน', 'ธาตุที่แฝงอยู่ในกิ่งดิน แอปนับรวมด้วยเวลาคิด % ธาตุ'],
+    ['dm', 'ธาตุประจำตัว (日主)', 'ก้านฟ้าของเสาวัน คือตัวคุณ ใช้เป็นจุดอ้างอิงของทุกอย่างในดวง'],
+    ['yinyang', 'หยาง / หยิน', 'แต่ละธาตุมี 2 แบบ หยางคือแบบแรง เปิดเผย เช่น ภูเขา หยินคือแบบนุ่ม ละเอียด เช่น ดินสวน'],
+  ]],
+  ['ธาตุและสมดุล', [
+    ['elements', '5 ธาตุ', 'ไม้ ไฟ ดิน ทอง น้ำ ธาตุ "ทอง" ในปาจื้อหมายถึงโลหะทั้งหมด ไม่ใช่ทองคำที่ซื้อขาย'],
+    ['cycle', 'วงจรส่งเสริม / ข่ม', 'ส่งเสริม: ไม้→ไฟ→ดิน→ทอง→น้ำ→ไม้ ข่ม: ไม้ข่มดิน ดินข่มน้ำ น้ำข่มไฟ ไฟข่มทอง ทองข่มไม้'],
+    ['strength', 'ดวงอ่อน / สมดุล / แข็ง', 'วัดจากสัดส่วนธาตุที่ช่วยตัวคุณ ต่ำกว่า 42% = อ่อน 42–58% = สมดุล เกิน 58% = แข็ง ไม่ได้แปลว่าดวงดีหรือร้าย'],
+    ['useful', 'ธาตุช่วย', 'ธาตุที่เติมให้ดวงสมดุล ปีหรือเดือนที่มีธาตุนี้มักได้ป้าย "หนุน"'],
+    ['unfav', 'ธาตุกด / ทำให้พลังรั่ว', 'ธาตุที่ทำให้ดวงเสียสมดุลมากขึ้น ไม่ใช่ธาตุร้าย แต่ต้องใช้พลังมากขึ้นเมื่อเจอ'],
+  ]],
+  ['ด้านในดวง (10 เทพ)', [
+    ['companion', 'ตัวเองและเพื่อน', 'ธาตุเดียวกับตัวคุณ ความมั่นใจ เพื่อน คู่แข่ง'],
+    ['resource', 'ผู้หนุนและความรู้', 'ธาตุที่ส่งเสริมตัวคุณ ผู้ใหญ่ การเรียน ใบอนุญาต ที่พักใจ'],
+    ['output', 'ฝีมือและไอเดีย', 'ธาตุที่ตัวคุณส่งออก ฝีมือ งานสร้างสรรค์ การสอน การขาย'],
+    ['wealth', 'เงินและโอกาส', 'ธาตุที่ตัวคุณข่ม เงิน ทรัพย์สิน โอกาสทางการค้า'],
+    ['officer', 'งาน กฎ และแรงกดดัน', 'ธาตุที่ข่มตัวคุณ ตำแหน่ง หัวหน้า กฎระเบียบ ความรับผิดชอบ'],
+  ]],
+  ['เวลาและรอบ', [
+    ['luck', 'วัยจร (大運)', 'รอบใหญ่ 10 ปีที่เปลี่ยนไปตามอายุ เป็นฉากหลังของทุกปีในรอบนั้น แอปให้น้ำหนักวัยจร 25% ของคะแนนปี'],
+    ['cyear', 'ปีจีน', 'เริ่มวันลี่ชุน (立春) ราว 4 ก.พ. ไม่ใช่ 1 ม.ค. หรือตรุษจีน เกิดต้นปีก่อน 4 ก.พ. นับเป็นปีก่อนหน้า'],
+    ['cmonth', 'เดือนจีน', 'เริ่มตามวันเปลี่ยนฤดู 12 จุดในรอบปี (節) ราววันที่ 4–8 ของเดือนสากล'],
+    ['solar', 'เวลาสุริยะจริง', 'ปรับเวลาเกิดตามลองจิจูดจังหวัด มีผลเฉพาะคนเกิดใกล้รอยต่อยาม (ทุก 2 ชั่วโมงเลขคี่)'],
+    ['horse', 'ม้าเดินทาง (驛馬)', 'กิ่งดินที่บอกการเคลื่อนไหว หาจากกิ่งของเสาวันหรือเสาปี เช่น เกิดวันเสือ ม้า หมา → ม้าเดินทางคือลิง ปีหรือเดือนที่ตรงกับม้าเดินทางมักมีการย้าย เดินทาง เปลี่ยนงาน'],
+    ['home', 'ตำแหน่งบ้าน', 'กิ่งของเสาวัน (และเสาเดือนเรื่องครอบครัว) ถ้าปีนั้นชนตำแหน่งนี้ = มีแรงให้ย้ายหรือเปลี่ยนที่อยู่ ถ้ารวมกัน = บ้านอบอุ่น มีคนเข้ามา'],
+    ['era', 'ยุค 9 ไฟ / ยุค 1 น้ำ', 'รอบ 20 ปีตามหลักฮวงจุ้ย ยุค 9 (2024–2043) เด่นเรื่องเทคโนโลยี สื่อ พลังงาน ยุค 1 (2044–2063) เด่นเรื่องการค้า การเคลื่อนไหว ข้อมูล'],
+  ]],
+  ['แรงปฏิกิริยา (ในหัวข้อ "ทำไมได้ผลนี้")', [
+    ['clash', 'ชน (沖)', 'กิ่งดินที่อยู่ตรงข้ามกัน เช่น เสือชนลิง หมายถึงการเปลี่ยนแปลง เคลื่อนย้าย หรือสะดุด ถ้าชนเสาวันจะหนักสุด'],
+    ['punish', 'ทับ / ลงโทษ (刑)', 'แรงเสียดทาน เรื่องจุกจิก ปัญหาคนใกล้ตัว หรือสุขภาพ'],
+    ['harm', 'ทำร้าย (害)', 'แรงขัดเบาๆ ความไม่ลงรอย'],
+    ['combine', 'รวม (合)', 'กิ่งดินหรือก้านฟ้าดึงดูดกัน ความร่วมมือ ดีลสำเร็จ'],
+    ['trine', 'สามประสาน (三合) เช่น "ไฟครบ"', 'กิ่งดิน 3 ตัวรวมเป็นธาตุเดียว พลังธาตุนั้นแรงขึ้นมาก'],
+    ['fuyin', 'ซ้ำ (伏吟) / ชนสลับ (反吟)', 'ปีหรือเดือนที่เหมือนหรือตรงข้ามกับเสาเกิด เรื่องเก่าวนกลับ หรือเปลี่ยนกะทันหัน'],
+    ['score', 'คะแนน', 'ผลรวมของแรงต่างๆ บวก = หนุน ลบ = ฝืน ปี: ≥1.5 หนุน, ≤-2.5 ระวัง เดือน: ≥0.5 หนุน, ≤-2 ระวัง'],
+  ]],
+];
+const LABELS = [
+  ['ดวงตัวเอง', [['support', 'หนุน', 'จังหวะเปิด ลงแรงได้ผล'], ['neutral', 'กลาง', 'ทำตามแผนปกติ'], ['caution', 'ระวัง', 'ชะลอ เก็บสำรอง ไม่เสี่ยงใหญ่']]],
+  ['ดวงโลก', [['low', 'ผันผวนต่ำ', 'ค่อนข้างสงบ'], ['mid', 'ผันผวนกลาง', 'มีแกว่งบางช่วง'], ['high', 'ผันผวนสูง', 'ตลาด การเมือง หรือภัยธรรมชาติแรง']]],
+  ['การงาน', [['rise', 'เด่น', 'ขอเลื่อน เปิดงานใหม่'], ['steady', 'ปกติ', 'เก็บผลงาน'], ['pressure', 'กดดัน', 'ไม่รับงานเพิ่ม']]],
+  ['เงิน', [['in', 'เงินเข้า', 'เพิ่มยอดออม'], ['keep', 'เก็บได้', 'ออมตามแผน'], ['leak', 'ระวังรั่ว', 'ถือเงินสด ลดรายจ่าย']]],
+  ['สุขภาพ', [['good', 'ดี', 'ไม่มีแรงชน'], ['watch', 'ดูแล', 'พักให้พอ'], ['caution', 'ระวัง', 'ระวังอุบัติเหตุ ตรวจสุขภาพ']]],
+  ['ธุรกิจ', [['grow', 'ขยายได้', 'เพิ่มสินค้า สาขา'], ['steady', 'ทำต่อ', 'ทำของเดิม'], ['hold', 'ประคอง', 'ไม่ลงทุนเพิ่ม']]],
+  ['ที่อยู่อาศัย', [['move', 'ย้ายได้', 'มีแรงย้ายและดวงไม่ติดขัด'], ['forced', 'มีแรงย้าย', 'มีแรงย้ายแต่ดวงปีระวัง อย่ารีบ'], ['improve', 'ปรับปรุงบ้าน', 'อยู่ที่เดิม ปรับปรุง จัดบ้าน'], ['stay', 'อยู่ที่เดิม', 'ไม่มีแรงให้ย้าย']]],
+  ['เดินทาง', [['go', 'เดินทางดี', 'ปีม้าเดินทาง ดวงไม่ติดขัด'], ['normal', 'ปกติ', 'เดินทางตามปกติ'], ['careful', 'ระวังเดินทาง', 'ระวังอุบัติเหตุ เอกสาร ของหาย']]],
+  ['ทอง', [['add', 'เพิ่ม', 'ซื้อเพิ่มได้'], ['hold', 'ถือ', 'ถือของเดิม']]],
+  ['หุ้น', [['buy', 'เหมาะ', 'เพิ่มได้'], ['dca', 'ทยอย', 'ซื้อรายเดือน'], ['rest', 'พัก', 'พักซื้อก้อนใหญ่']]],
+  ['ช้อนของถูก', [['star', '★ดี', 'โลกผันผวนแต่ดวงหนุน'], ['dca', 'ทยอย', 'ค่อยๆ ช้อน'], ['small', 'เล็ก', 'ช้อนแค่นิดเดียว'], ['none', '–', 'ไม่ใช่ปีช้อน']]],
+];
+const info = (id) => `<button class="info" data-act="term" data-v="${id}" aria-label="อธิบายคำนี้">ⓘ</button>`;
+function guideView() {
+  return `<section class="hero me"><span class="sm dim">คู่มือ</span><b class="h1">จัดทำขึ้นเพื่อ</b><p>${PURPOSE}</p></section>
+  <div class="card warn sm"><b>หมายเหตุ</b><ul class="ul">
+    <li>จัดทำขึ้นเพื่อเป็นศาสตร์ดูดวงพื้นฐาน ควรใช้วิจารณญาณในการอ่าน</li>
+    <li>การคำนวณ 4 เสา วันเปลี่ยนปีและเดือนจีน แม่นตามดาราศาสตร์</li>
+    <li>การตีความเป็นเชิงสัญลักษณ์ ไม่มีหลักฐานทางวิทยาศาสตร์ว่าทำนายเหตุการณ์ได้</li>
+    <li>ฝั่งโลกเป็นการอ่านตามกรอบปาจื้อ ไม่ใช่ข้อมูลเศรษฐกิจจริง และมีเฉพาะปี 2026–2050</li>
+    <li>ไม่ใช่คำแนะนำการลงทุน การแพทย์ หรือกฎหมาย ตัดสินใจจากสถานะการเงิน ราคาจริง และผู้เชี่ยวชาญ</li>
+    <li>บันทึกวันเกิดคนอื่นเมื่อเจ้าของยินยอมเท่านั้น</li></ul></div>
+  <section class="card"><h2 class="mt0">วิธีใช้</h2><ol class="steps">
+    <li><b>เพิ่มคน</b> แตะชื่อด้านบน → "+ เพิ่มคน" กรอกชื่อ เพศ วันเกิด เวลาเกิด (ไม่ทราบให้ติ๊ก) จังหวัดเกิด และติ๊กยินยอม</li>
+    <li><b>วิเคราะห์ดวง</b> ดูธาตุประจำตัว สมดุลธาตุ ด้านเด่น แนวทาง 6 ด้าน และวัยจร 10 ปี</li>
+    <li><b>ดวงฉันรายปี</b> แตะแท่งกราฟหรือเลือกปี ดู 6 ด้านของปีนั้น แตะการ์ดด้านไหนเพื่อดูตารางทีละเดือน</li>
+    <li><b>รายเดือน</b> แตะเดือนเพื่อดูรายละเอียด และเปิด "ทำไมได้ผลนี้" เพื่อดูว่าคะแนนมาจากอะไร</li>
+    <li><b>ดวงโลก</b> ดูว่าโลกปีนั้นผันผวนแค่ไหน อะไรดี อะไรต้องระวัง</li>
+    <li><b>จดสิ่งที่เกิดจริง</b> ในหน้ารายปี แล้วกลับมาเทียบว่าแอปตรงแค่ไหน</li>
+    <li><b>วางแผนง่ายๆ</b> ปีหนุนเร่งหารายได้และออมเพิ่ม ปีกลางทำตามแผน ปีระวังเก็บเงินสดและไม่เสี่ยงก้อนใหญ่</li></ol>
+    <p class="sm dim">ข้อมูลบันทึกในบัญชี claude.ai ของคุณเท่านั้น ถ้าแชร์ลิงก์ คนอื่นจะมีรายชื่อแยกของตัวเอง แตะ ⓘ ข้างหัวข้อเพื่อดูคำอธิบาย</p></section>
+  <section class="card"><h2 class="mt0">ที่มาและวิธีคำนวณ</h2><div class="prose sm">
+    <p><b>ปฏิทิน</b> คำนวณตำแหน่งดวงอาทิตย์ด้วยสูตรจากหนังสือ Astronomical Algorithms (Jean Meeus) เพื่อหาวันเปลี่ยนฤดู 12 จุด คลาดเคลื่อนไม่เกินราว 10 นาที เสาวันคำนวณจากเลขวันจูเลียน ทดสอบกับวันอ้างอิงที่ทราบผลแน่นอน</p>
+    <p><b>หลักตีความ</b> ใช้หลักปาจื้อสายจื่อผิง (子平) ที่สืบมาจากตำราคลาสสิก เช่น 《子平真詮》 และ 《滴天髓》 ได้แก่ ความแข็งอ่อนของธาตุประจำตัว ธาตุช่วย 10 เทพ การชน รวม ทับ และวัยจร</p>
+    <p><b>การให้คะแนน</b> ธาตุช่วย +1 ถึง +2 ธาตุกด −1 ชนเสาวัน −2 ชนเสาอื่น −1 ทับ −1 ถึง −2 รวม +0.5 ถึง +1 สามประสาน ±1 ปีรวมวัยจร 25% เกณฑ์ปี ≥1.5 หนุน ≤−2.5 ระวัง เกณฑ์เดือน ≥0.5 หนุน ≤−2 ระวัง</p>
+    <p><b>ข้อจำกัด</b> น้ำหนักคะแนนเป็นการตั้งค่าของแอปนี้ หมอดูแต่ละสำนักอาจให้ผลต่างกัน ฝั่งโลกเป็นตารางที่ตั้งตามกรอบปาจื้อ ผลลัพธ์เหมือนเดิมทุกครั้งที่ใส่ข้อมูลเดิม</p></div></section>
+  <h2>ความหมายของป้าย</h2>
+  <div class="card">${LABELS.map(([g, rows]) => `<div class="lg"><b class="sm">${g}</b><div class="lgr">${rows.map(([c, l, d]) => `<span>${pill(c, l)} <span class="sm dim">${d}</span></span>`).join('')}</div></div>`).join('')}</div>
+  <h2>อธิบายคำ</h2>
+  ${GLOSS.map(([g, items]) => `<section class="card"><h2 class="mt0 sm2">${g}</h2><dl class="gl">${items.map(([id, t, d]) => `<div id="t-${id}"><dt>${t}</dt><dd>${d}</dd></div>`).join('')}</dl></section>`).join('')}`;
+}
+
+// ---------------- app (engine + content.js + guide.js inlined above) ----------------
+const PROVINCES = [['', 'ไม่ระบุ (ใช้เวลานาฬิกา)'], ['100.50', 'กรุงเทพฯ / ภาคกลาง'], ['98.99', 'เชียงใหม่'], ['98.39', 'ภูเก็ต'],
+  ['99.33', 'สุราษฎร์ธานี'], ['99.96', 'นครศรีธรรมราช'], ['100.47', 'สงขลา / หาดใหญ่'], ['100.26', 'พิษณุโลก'], ['100.98', 'ชลบุรี'],
+  ['102.10', 'นครราชสีมา'], ['102.83', 'ขอนแก่น'], ['102.79', 'อุดรธานี'], ['104.85', 'อุบลราชธานี']];
+const TONE = { support: 'g', neutral: 'm', caution: 'd', low: 'g', mid: 'm', high: 'd', buy: 'g', dca: 'm', rest: 'd', add: 'g', hold: 'm',
+  grow: 'g', steady: 'm', good: 'g', watch: 'm', star: 'g', small: 'd', none: 'n', rise: 'g', pressure: 'd', in: 'g', keep: 'm', leak: 'd',
+  move: 'g', forced: 'd', improve: 'g', stay: 'm', go: 'g', careful: 'd', normal: 'm' };
+const STRENGTH_TH = Object.fromEntries(Object.entries(STRENGTH).map(([k, v]) => [k, v[0]]));
+const TH_MONTH = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const pill = (code, label) => `<span class="pill t-${TONE[code] || 'n'}">${esc(label)}</span>`;
+const fmtDate = (iso) => { const [y, m, d] = iso.slice(0, 10).split('-'); return `${+d} ${TH_MONTH[+m - 1]} ${y}`; };
+const fmtBirth = (p) => `${fmtDate(p.date)}${p.time ? ' · ' + p.time : ' · ไม่ทราบเวลา'}`;
+const yr = (iso) => iso.slice(0, 4);
+const charEl = (ch) => { const s = STEMS.indexOf(ch); return s >= 0 ? STEM_EL[s] : BR_EL[BRANCHES.indexOf(ch)]; };
+const elChar = (ch) => `<span style="color:${EL_COLOR[charEl(ch)]}">${esc(ch)}</span>`;
+const roleOfEl = (n, el) => Object.keys(n.roles).find((r) => n.roles[r].element === el);
+const yearsWhere = (R, f) => R.annual.filter(f).map((a) => a.year);
+const ylist = (ys) => ys.length ? ys.map((y) => `<button class="ymini" data-act="goyear" data-v="${y}">${y}</button>`).join('') : '<span class="dim sm">ไม่มีในช่วง 2026–2050</span>';
+const sec = (title, inner, id = '', cls = '') => `<section class="card ${cls}"${id ? ` id="${id}"` : ''}><h2 class="mt0">${title}</h2>${inner}</section>`;
+
+const S = { people: [], current: null, view: 'profile', year: null, month: null, topic: 'money', panel: null, storage: 'memory', cache: new Map(), err: '', noteMsg: '', term: null };
+const app = document.getElementById('app');
+const STANDALONE = !window.claude;
+
+// ---------- storage: private db subtree → localStorage → memory ----------
+let dbRef = null;
+function lsGet() { try { return JSON.parse(localStorage.getItem('bazi-people') || 'null'); } catch { return null; } }
+function lsSet(v) { try { localStorage.setItem('bazi-people', JSON.stringify(v)); return true; } catch { return false; } }
+async function save() {
+  const body = { list: S.people, current: S.current, updated: new Date().toISOString() };
+  if (dbRef) { try { await dbRef.set(body); S.storage = 'db'; lsSet(body); return true; } catch { dbRef = null; } }
+  const ok = lsSet(body); S.storage = ok ? 'local' : 'memory'; return ok;
+}
+function validPerson(p) { try { natalChart(p); return true; } catch { return false; } }
+function applyStored(v) {
+  if (v && Array.isArray(v.list)) {
+    S.people = v.list.filter(validPerson);
+    S.current = S.people.some((p) => p.id === v.current) ? v.current : S.people[0]?.id ?? null;
+  }
+}
+async function initStorage() {
+  const local = lsGet();
+  if (local) { applyStored(local); S.storage = 'local'; }
+  render();
+  if (!window.claude?.use) return;
+  try {
+    const [db, user] = await Promise.all([window.claude.use('db'), window.claude.use('user')]);
+    const uid = user ? await user.id() : null;
+    if (!db || !uid) return;
+    dbRef = db.doc('data/users/' + uid + '/people');
+    const snap = await Promise.race([dbRef.get(), new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 10000))]);
+    if (snap.exists) { applyStored(snap.data()); S.storage = 'db'; lsSet(snap.data()); }
+    else if (S.people.length) await save();
+    else S.storage = 'db';
+    S.cache.clear(); S.year = null;
+    render();
+  } catch { dbRef = null; }
+}
+
+// ---------- data ----------
+const currentPerson = () => S.people.find((p) => p.id === S.current) || null;
+function readingFor(p) {
+  const key = JSON.stringify([p.date, p.time, p.gender, p.longitude]);
+  if (!S.cache.has(key)) S.cache.set(key, reading(p));
+  return S.cache.get(key);
+}
+function defaultYM(R) {
+  const m = monthFor(R, Date.now());
+  if (m) return [m.chinese_year, m.id];
+  const cy = Math.min(2050, Math.max(2026, chineseYear(Date.now())));
+  return [cy, R.monthly.find((x) => x.chinese_year === cy).id];
+}
+
+// ---------- render ----------
+function render() {
+  const p = currentPerson();
+  let body;
+  if (S.view === 'guide') body = guideView();
+  else if (!p) body = onboarding();
+  else {
+    const R = readingFor(p);
+    if (!S.year) { const [y, m] = defaultYM(R); S.year = y; S.month = m; }
+    if (S.view === 'profile') body = profileView(p, R);
+    else {
+      const Y = R.annual.find((a) => a.year === S.year);
+      const months = R.monthly.filter((m) => m.chinese_year === S.year);
+      if (!months.some((m) => m.id === S.month)) S.month = months[0].id;
+      const M = months.find((m) => m.id === S.month);
+      body = S.view === 'me'
+        ? `${chart25(R)}${yearStrip()}${meYear(Y)}${topicCards(Y)}${yearNarrative(Y, R, months)}${noteCard(p, Y)}${monthGrid(months)}${monthDetail(M, R)}${topicTable(months)}${timeline(R)}`
+        : `${yearStrip()}${worldYearView(Y)}${worldTopics(Y)}${worldNarrative(Y)}${monthGrid(months)}${monthDetail(M, R)}${timeline(R)}`;
+    }
+  }
+  app.innerHTML = header(p) + `<main class="wrap">${body}
+    <footer class="fine"><b>หมายเหตุ</b> จัดทำขึ้นเพื่อเป็นศาสตร์ดูดวงพื้นฐาน ควรใช้วิจารณญาณในการอ่าน ไม่ใช่คำทำนายอนาคต ไม่ใช่คำแนะนำการลงทุน การแพทย์ หรือกฎหมาย · ฝั่งโลกมีข้อมูลปี 2026–2050 · ตัวคำนวณ v${VERSION} · <button class="link" data-act="view" data-v="guide">คู่มือและคำอธิบายศัพท์</button></footer>
+  </main>` + panelHtml();
+  if (S.term) {
+    const t = document.getElementById('t-' + S.term);
+    if (t) { t.scrollIntoView({ block: 'center' }); t.classList.add('hl'); }
+    S.term = null;
+  } else { const chip = app.querySelector('.ychip.on'); if (chip) chip.scrollIntoView({ block: 'nearest', inline: 'center' }); }
+}
+function header(p) {
+  const tab = (v, t) => `<button role="tab" aria-selected="${S.view === v}" class="${S.view === v ? 'on ' + v : ''}" data-act="view" data-v="${v}">${t}</button>`;
+  return `<header class="top"><div class="wrap row">
+    <button class="who" data-act="people" aria-label="เปลี่ยนคน">
+      <span class="avatar">${p ? esc(readingFor(p).natal.pillars.day[0]) : '+'}</span>
+      <span class="who-t"><b>${p ? esc(p.name || 'ไม่มีชื่อ') : 'เพิ่มคน'}</b><small>${p ? esc(fmtBirth(p)) : 'ยังไม่มีข้อมูล'}</small></span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </button><button class="gbtn ${S.view === 'guide' ? 'on' : ''}" data-act="view" data-v="guide">📖 คู่มือ</button></div>
+    ${p ? `<div class="wrap"><div class="seg" role="tablist">${tab('profile', 'วิเคราะห์ดวง')}${tab('me', 'ดวงฉันรายปี')}${tab('world', 'ดวงโลก')}</div></div>` : ''}</header>`;
+}
+
+// ---------- profile (analysis) ----------
+function profileView(p, R) {
+  const n = R.natal, P = n.pillars, dmCh = P.day[0], dmEl = charEl(dmCh), d = DM[dmCh];
+  const st = STRENGTH[n.strength.level];
+  return `
+  <section class="hero me prof">
+    <div class="row sb"><span class="sm dim">ธาตุประจำตัว ${info('dm')}</span>${pill(n.strength.level.includes('weak') ? 'caution' : 'support', st[0])}</div>
+    <div class="row base"><span class="dmbig" style="background:${EL_COLOR[dmEl]}">${esc(dmCh)}</span>
+      <span><b class="h1">${esc(EL_NAME[dmEl])}${STEMS.indexOf(dmCh) % 2 ? 'หยิน' : 'หยาง'} · ${d.img}</b><br><span class="dim sm">${esc(p.name || '')} ${p.gender === 'F' ? 'หญิง' : 'ชาย'} · ${esc(fmtBirth(p))}</span></span></div>
+    <p class="lead">${d.one}</p>
+    <div class="chips">${n.useful.map((e) => `<span class="chip" style="--c:${EL_COLOR[e]}">ธาตุช่วย ${EL_NAME[e]}</span>`).join('')}<span class="chip ghost">ปีนักษัตร${ANIMAL[BRANCHES.indexOf(P.year[1])]}</span></div>
+  </section>
+  <div class="card warn sm"><b>อ่านก่อนใช้</b> แอปนี้จัดทำขึ้นเพื่อเป็นศาสตร์ดูดวงพื้นฐาน ควรใช้วิจารณญาณในการอ่าน การคำนวณ 4 เสาแม่นตามปฏิทินดาราศาสตร์ แต่การตีความเป็นเชิงสัญลักษณ์ ไม่มีหลักฐานว่าทำนายเหตุการณ์ได้</div>
+  ${sec(`4 เสาเกิด ${info('pillars')}`, pillarsBlock(n), 'sec-pillars')}
+  ${sec(`สมดุลธาตุ ${info('elements')}`, elementWheel(n, dmEl) + elementBars(n) + elementText(n, dmEl))}
+  ${sec(`พลังของตัวเอง ${info('strength')}`, `${gauge(n.strength.supportRatio)}<p class="sm">${st[1]}</p>
+    <div class="g2 mt8"><div class="box3 g"><small>ธาตุช่วย (เติมพลัง)</small><b>${n.useful.map((e) => EL_NAME[e]).join(' · ') || '–'}</b></div>
+    <div class="box3 d"><small>ธาตุกด / ทำให้พลังรั่ว</small><b>${n.unfavorable.map((e) => EL_NAME[e]).join(' · ') || '–'}</b></div></div>`)}
+  ${sec('ตัวตนโดยละเอียด', personality(d))}
+  ${sec(`ด้านเด่นในดวง ${info('companion')}`, roleBars(n))}
+  ${sec('💼 งานและอาชีพ', careerBlock(n, R))}
+  <h2>แนวทางชีวิต 8 ด้าน</h2>${lifeGuide(n, R)}
+  ${sec('🏠 ที่อยู่อาศัยและ ✈️ การเดินทาง', homeBlock(n, R))}
+  ${sec('ธาตุช่วยในชีวิตประจำวัน', luckyBlock(n))}
+  ${sec(`วัยจร 10 ปี ${info('luck')}`, luckList(n))}
+  ${sec('ปีเด่นและปีระวัง 2026–2050', `<small class="dim">ปีหนุน</small><div class="ywrap">${ylist(yearsWhere(R, (a) => a.me.tag === 'support'))}</div>
+    <small class="dim">ปีระวัง</small><div class="ywrap">${ylist(yearsWhere(R, (a) => a.me.tag === 'caution'))}</div>
+    <button class="btn mt8" data-act="view" data-v="me">ดูเหตุการณ์รายปี →</button>`)}
+  ${sec('ข้อมูลการคำนวณ', calcBlock(p, n), '', 'soft')}`;
+}
+function pillarsBlock(n) {
+  const P = n.pillars;
+  const cell = (k, v, on) => `<div class="pc ${on ? 'on' : ''}"><small>${k}</small><b>${v ? elChar(v[0]) + elChar(v[1]) : '–'}</b>
+    <span class="dots">${v ? `<i style="background:${EL_COLOR[charEl(v[0])]}"></i><i style="background:${EL_COLOR[charEl(v[1])]}"></i>` : ''}</span></div>`;
+  const rows = ['year', 'month', 'day', 'hour'].map((k) => {
+    const v = P[k]; if (!v) return `<div class="prow"><b>${PILLAR_POS[k][0]}</b><span class="sm dim">ไม่ทราบเวลาเกิด</span></div>`;
+    const sEl = charEl(v[0]), bEl = charEl(v[1]);
+    const sRole = k === 'day' ? 'ตัวคุณ' : ROLE[roleOfEl(n, sEl)].name;
+    return `<div class="prow"><b class="pp">${elChar(v[0])}${elChar(v[1])}</b><div class="sm"><b>${PILLAR_POS[k][0]}</b> · ${PILLAR_POS[k][1]}<br>
+      <span class="dim">ก้าน ${v[0]} ธาตุ${EL_NAME[sEl]} = ${sRole} · กิ่ง ${v[1]} ${ANIMAL[BRANCHES.indexOf(v[1])]} ธาตุ${EL_NAME[bEl]} = ${ROLE[roleOfEl(n, bEl)].name}</span></div></div>`;
+  }).join('');
+  return `<div class="pgrid">${cell('ชั่วโมง', P.hour)}${cell('วัน (ตัวเอง)', P.day, 1)}${cell('เดือน', P.month)}${cell('ปี', P.year)}</div>
+    <div class="mt8">${rows}</div>${n.has_time ? '' : '<p class="sm dim">ไม่ทราบเวลาเกิด จึงดูได้ 3 เสา ผลส่วนลูก ผลงาน และบั้นปลายจะขาดไป</p>'}`;
+}
+function elementWheel(n, dmEl) {
+  const cx = 160, cy = 132, R = 92;
+  const pos = EL_KEYS.map((e, i) => { const a = -Math.PI / 2 + (i * 2 * Math.PI) / 5; return [cx + R * Math.cos(a), cy + R * Math.sin(a)]; });
+  let lines = '';
+  for (let i = 0; i < 5; i++) { const [x1, y1] = pos[i], [x2, y2] = pos[(i + 1) % 5]; lines += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#D8D1C4" stroke-width="2" marker-end="url(#ar)"/>`; }
+  for (let i = 0; i < 5; i++) { const [x1, y1] = pos[i], [x2, y2] = pos[(i + 2) % 5]; lines += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#EDE7DC" stroke-width="1.5" stroke-dasharray="4 4"/>`; }
+  const nodes = EL_KEYS.map((e, i) => {
+    const [x, y] = pos[i], pct = n.elements_pct[e], r = 16 + pct * 0.75;
+    const fav = n.favorability[e], ring = fav > 0 ? `<circle cx="${x}" cy="${y}" r="${r + 5}" fill="none" stroke="${EL_COLOR[e]}" stroke-width="2.5" stroke-dasharray="${e === dmEl ? '0' : '5 3'}"/>` : '';
+    return `${ring}<circle cx="${x}" cy="${y}" r="${r}" fill="${EL_COLOR[e]}" opacity="${fav > 0 ? 1 : 0.55}"/>
+      <text x="${x}" y="${y - 2}" text-anchor="middle" fill="#fff" font-size="15" font-weight="600">${EL_NAME[e]}</text>
+      <text x="${x}" y="${y + 15}" text-anchor="middle" fill="#fff" font-size="12">${Math.round(pct)}%</text>`;
+  }).join('');
+  return `<svg viewBox="0 0 320 262" width="100%" role="img" aria-label="วงจรธาตุ: ${EL_KEYS.map((e) => EL_NAME[e] + ' ' + Math.round(n.elements_pct[e]) + '%').join(', ')}">
+    <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#C9C1B2"/></marker></defs>
+    ${lines}${nodes}</svg>
+    <p class="sm dim c">วงใหญ่ = ธาตุมาก · มีวงล้อม = ธาตุช่วย (วงทึบ = ธาตุของตัวคุณ) · เส้นทึบ = ส่งเสริมกัน · เส้นประ = ข่มกัน</p>`;
+}
+function elementBars(n) {
+  const max = Math.max(...EL_KEYS.map((e) => n.elements_pct[e]));
+  return EL_KEYS.slice().sort((a, b) => n.elements_pct[b] - n.elements_pct[a]).map((e) => {
+    const f = n.favorability[e]; const tag = f > 0 ? pill('support', 'ช่วย') : f < 0 ? pill('caution', 'กด/รั่ว') : pill('none', 'กลาง');
+    return `<div class="bw"><span>${EL_NAME[e]}</span><div class="track"><div style="width:${(n.elements_pct[e] / max) * 100}%;background:${EL_COLOR[e]}"></div></div><span class="num">${Math.round(n.elements_pct[e])}%</span>${tag}</div>`;
+  }).join('');
+}
+function elementText(n, dmEl) {
+  const s = EL_KEYS.slice().sort((a, b) => n.elements_pct[b] - n.elements_pct[a]);
+  const hi = s[0], lo = s[4];
+  const missing = EL_KEYS.filter((e) => n.elements_pct[e] < 5);
+  const rh = roleOfEl(n, hi), rl = roleOfEl(n, lo);
+  return `<div class="prose sm">
+    <p><b>ธาตุที่มากที่สุดคือ${EL_NAME[hi]} (${Math.round(n.elements_pct[hi])}%)</b> ในดวงคุณธาตุนี้คือ "${ROLE[rh].name}" ${n.favorability[hi] > 0 ? 'และเป็นธาตุช่วย จึงเป็นจุดแข็งที่ใช้ได้เต็มที่' : 'แต่ไม่ใช่ธาตุช่วย ด้านนี้จึงมีมากจนกินพลัง ต้องจัดสรรให้ดี'} ลักษณะเด่นของธาตุ${EL_NAME[hi]}คือ${EL_INFO[hi].trait}</p>
+    <p><b>ธาตุที่น้อยที่สุดคือ${EL_NAME[lo]} (${Math.round(n.elements_pct[lo])}%)</b> หมายถึงด้าน "${ROLE[rl].name}" ${n.favorability[lo] > 0 ? 'ซึ่งเป็นธาตุที่ดวงต้องการ ช่วงไหนที่ธาตุนี้เข้ามา (ทั้งปี เดือน หรือวัยจร) มักเป็นช่วงที่ชีวิตลื่นไหลขึ้น' : 'ซึ่งดวงไม่ได้ต้องการมาก จึงไม่ใช่จุดอ่อนสำคัญ'}</p>
+    ${missing.length ? `<p>ธาตุที่แทบไม่มีเลย: ${missing.map((e) => EL_NAME[e]).join(', ')} ด้านนี้ต้องเติมจากภายนอก เช่น คน สภาพแวดล้อม หรือช่วงเวลาที่มีธาตุนั้น</p>` : '<p>มีครบทั้ง 5 ธาตุ ไม่มีธาตุใดขาดหายไป</p>'}
+  </div>`;
+}
+function gauge(ratio) {
+  const x = Math.max(2, Math.min(98, ratio * 100));
+  return `<div class="gauge" role="img" aria-label="พลังตัวเอง ${Math.round(ratio * 100)} จาก 100"><div class="zone z1">อ่อน</div><div class="zone z2">สมดุล</div><div class="zone z3">แข็ง</div><span class="mark" style="left:${x}%"></span></div>
+    <div class="row sb sm dim"><span>0</span><span>ตัวช่วย ${Math.round(ratio * 100)}%</span><span>100</span></div>`;
+}
+function personality(d) {
+  const row = (t, v) => `<div class="kv"><b>${t}</b><p>${v}</p></div>`;
+  return `<div class="prose sm">${row('ธรรมชาติ', d.nature)}${row('จุดแข็ง', d.strong)}${row('จุดที่ควรระวัง', d.watch)}${row('สไตล์การทำงาน', d.work)}${row('สไตล์การเงิน', d.money)}${row('ความสัมพันธ์', d.rel)}</div>`;
+}
+function roleBars(n) {
+  const order = Object.entries(n.roles).sort((a, b) => b[1].pct - a[1].pct);
+  const nonSelf = order.filter(([r]) => r !== 'companion');
+  const top = nonSelf[0], second = nonSelf[1], low = order[order.length - 1];
+  return order.map(([r, v]) => `<div class="bw rb"><span>${ROLE[r].name}</span><div class="track"><div style="width:${v.pct * 2}%;background:${EL_COLOR[v.element]}"></div></div><span class="num">${Math.round(v.pct)}%</span><span class="dim sm">${EL_NAME[v.element]}</span></div>`).join('')
+    + `<div class="prose sm mt8"><p><b>เด่นที่สุด: ${ROLE[top[0]].name}</b> ${ROLE[top[0]].hi}</p>
+      <p><b>รองลงมา: ${ROLE[second[0]].name}</b> ${ROLE[second[0]].hi}</p>
+      <p><b>น้อยที่สุด: ${ROLE[low[0]].name}</b> ${ROLE[low[0]].lo}</p></div>`;
+}
+function careerBlock(n, R) {
+  const weak = n.strength.level.includes('weak');
+  const nonSelf = Object.entries(n.roles).filter(([r]) => r !== 'companion').sort((a, b) => b[1].pct - a[1].pct);
+  const top2 = nonSelf.slice(0, 2).map(([r]) => r);
+  const out = n.roles.output.pct, wl = n.roles.wealth.pct, off = n.roles.officer.pct;
+  let self;
+  if (!weak && out + wl >= 30) self = 'มีพลังพอจะทำงานของตัวเองหรือเป็นเจ้าของกิจการ ฝีมือและเงินเชื่อมกันได้ดี';
+  else if (weak && out + wl >= 30) self = 'มีฝีมือและมองเห็นเงิน ทำงานของตัวเองได้ แต่ดวงอ่อนจึงควรเริ่มเล็ก มีงานประจำหรือรายได้หลักรองรับ มีหุ้นส่วนหรือระบบช่วย แล้วค่อยขยายในปีหนุน';
+  else if (off >= 25) self = 'เหมาะกับงานในระบบมากกว่าทำเองเต็มตัว ได้ประโยชน์จากตำแหน่ง ขั้นตอน และความมั่นคงขององค์กร';
+  else self = 'ทำได้ทั้งสองแบบ ขึ้นกับจังหวะวัยจร ช่วงวัยจรหนุนเหมาะเริ่มของตัวเอง';
+  const useJobs = n.useful.slice(0, 2).map((e) => `<div class="jobel"><span class="sw sm2" style="background:${EL_COLOR[e]}"></span><div><b>สายธาตุ${EL_NAME[e]}</b><ul class="ul">${EL_INFO[e].job.map((j) => `<li>${j}</li>`).join('')}</ul></div></div>`).join('');
+  const heavy = n.unfavorable.filter((e) => n.elements_pct[e] >= 20);
+  return `<div class="prose sm">
+    <p><b>สไตล์งานที่เข้ากับดวง</b> จากด้านเด่น "${ROLE[top2[0]].name}" และ "${ROLE[top2[1]].name}" งานที่เหมาะคือ ${ROLE_STYLE[top2[0]]} รวมถึง ${ROLE_STYLE[top2[1]]}</p>
+    <p><b>ทำงานเองหรือทำงานประจำ</b> ${self}</p>
+    ${off > 20 && n.favorability[n.roles.officer.element] < 0 ? `<p><b>เรื่องแรงกดดันจากงาน</b> ด้านงาน กฎ และแรงกดดันมีถึง ${Math.round(off)}% และไม่ใช่ธาตุช่วย งานที่มีกฎเข้ม กะยาว หรือหัวหน้าคุมแน่นจะกินพลังมาก ถ้ายังต้องอยู่ในงานแบบนี้ ให้มีเวลาพักและรายได้เสริมที่คุมเองได้</p>` : ''}
+    <p><b>สายอาชีพที่เข้าธาตุช่วย</b></p></div>${useJobs}
+    ${heavy.length ? `<p class="sm dim">สายที่ใช้พลังมาก (ธาตุกดที่มีเยอะในดวง): ${heavy.map((e) => EL_INFO[e].job.slice(0, 2).join(', ')).join(' · ')} ทำได้ แต่ต้องมีเวลาฟื้นพลัง</p>` : ''}
+    <div class="mt8"><small class="dim">ปีที่งานเด่น เหมาะขอเลื่อนหรือเปลี่ยนงาน</small><div class="ywrap">${ylist(yearsWhere(R, (a) => a.topics.work.code === 'rise'))}</div>
+    <small class="dim">ปีที่งานกดดัน ไม่ควรรับงานเพิ่มหรือลาออกกะทันหัน</small><div class="ywrap">${ylist(yearsWhere(R, (a) => a.topics.work.code === 'pressure'))}</div></div>`;
+}
+function lifeGuide(n, R) {
+  const weak = n.strength.level.includes('weak');
+  const rp = (r) => n.roles[r].pct;
+  const pcts = EL_KEYS.map((e) => [e, n.elements_pct[e]]).sort((a, b) => a[1] - b[1]);
+  const low = pcts[0][0], high = pcts[4][0];
+  const ys = (f) => yearsWhere(R, f).join(' ') || '–';
+  const g = {
+    work: `${weak ? 'ทำงานได้ดีเมื่อมีทีมหรือระบบหนุน' : 'นำและตัดสินใจเองได้'} ปีเด่น: ${ys((a) => a.topics.work.code === 'rise')}`,
+    money: (weak
+      ? (rp('wealth') > 20 ? 'เงินผ่านมือเยอะ แต่ถือเงินก้อนใหญ่เองเหนื่อย ใช้ระบบออมอัตโนมัติ ตัดเข้าบัญชีแยกทันทีที่เงินเข้า' : 'เงินมาจากความมั่นคงและการสะสม ไม่ใช่การเก็งกำไร ออมสม่ำเสมอได้ผลกว่าเสี่ยงก้อนใหญ่')
+      : 'คุมเงินก้อนใหญ่ได้ เน้นเพิ่มช่องทางรายได้ใหม่') + ` ปีเงินเข้า: ${ys((a) => a.topics.money.code === 'in')} · ปีระวังรั่ว: ${ys((a) => a.topics.money.code === 'leak')}`,
+    health: `ธาตุน้อยสุดคือ${EL_NAME[low]} (${EL_INFO[low].body}) ธาตุมากสุดคือ${EL_NAME[high]} (${EL_INFO[high].body}) เป็นจุดที่ศาสตร์นี้ให้ดูแลเป็นพิเศษ ไม่ใช่การวินิจฉัยโรค ตรวจสุขภาพประจำปีตามปกติ ปีที่ควรระวัง: ${ys((a) => a.topics.health.code === 'caution')}`,
+    business: (rp('output') + rp('wealth') >= 30 ? 'มีของให้ขาย ฝีมือแปลงเป็นเงินได้ ' : 'ธุรกิจต้องสร้างจากระบบและความต่อเนื่อง ')
+      + (weak ? 'เริ่มเล็ก มีหุ้นส่วนหรือระบบช่วย ' : 'เป็นเจ้าของและลงมือเองได้ ') + `ปีขยายได้: ${ys((a) => a.topics.business.code === 'grow')}`,
+    home: `ปีที่มีจังหวะย้าย: ${ys((a) => a.topics.home.code === 'move')} · ปีที่มีแรงย้ายแต่ควรระวัง: ${ys((a) => a.topics.home.code === 'forced')} · ปีที่เหมาะปรับปรุงบ้าน: ${ys((a) => a.topics.home.code === 'improve')} ปีอื่นอยู่ที่เดิมดีกว่า`,
+    travel: `ปีเดินทางดี: ${ys((a) => a.topics.travel.code === 'go')} · ปีระวังการเดินทาง: ${ys((a) => a.topics.travel.code === 'careful')}`,
+    gold: (n.favorability.metal > 0 ? 'ธาตุทองเป็นธาตุช่วย ถือทองได้สบายใจ ' : 'ธาตุทองไม่ใช่ธาตุช่วยในดวง (ธาตุทองในปาจื้อหมายถึงโลหะ ไม่ใช่ทองคำโดยตรง) ใช้ทองคำเป็นเงินสำรองยามโลกผันผวน ไม่ต้องถือมากเกิน ')
+      + `ปีเพิ่มทอง: ${ys((a) => a.topics.gold.code === 'add')}`,
+    stock: (weak ? 'สะสมรายเดือนสม่ำเสมอ (DCA) เหมาะกว่าซื้อก้อน พักในปีระวัง ' : 'รับความผันผวนได้มากกว่า แต่ยังควรกระจายความเสี่ยง ')
+      + `ปีเหมาะเพิ่ม: ${ys((a) => a.topics.stock.code === 'buy')} · ปีพัก: ${ys((a) => a.topics.stock.code === 'rest')}`,
+  };
+  return `<div class="list">${TOPICS.map(([k, th]) => `<div class="card guide"><span class="gi">${TOPIC_ICON[k]}</span><div><b>${th}</b><p class="sm">${esc(g[k])}</p></div></div>`).join('')}</div>`;
+}
+function homeBlock(n, R) {
+  const db = n.pillars.day[1], dbEl = charEl(db), dRole = roleOfEl(n, dbEl);
+  return `<div class="prose sm">
+    <p><b>ตำแหน่งบ้านในดวง</b> คือกิ่งของเสาวัน ${elChar(db)} (${ANIMAL[BRANCHES.indexOf(db)]} ธาตุ${EL_NAME[dbEl]}) ตรงกับด้าน "${ROLE[dRole].name}" ${n.favorability[dbEl] > 0 ? 'ซึ่งเป็นธาตุช่วย บ้านจึงเป็นที่เติมพลังของคุณ' : 'ซึ่งไม่ใช่ธาตุช่วย บ้านหรือชีวิตคู่อาจเป็นเรื่องที่ต้องใช้พลังดูแลมาก ควรจัดบ้านให้พักได้จริง'}</p>
+    <p><b>ม้าเดินทาง (驛馬) ของคุณคือ ${elChar(n.horse_branch)} (${ANIMAL[BRANCHES.indexOf(n.horse_branch)]})</b> ปีหรือเดือนที่เป็น${ANIMAL[BRANCHES.indexOf(n.horse_branch)]}มักมีเรื่องเดินทาง ย้ายที่ เปลี่ยนงาน หรือเคลื่อนไหวมากกว่าปกติ</p>
+    <p><b>หลักอ่าน</b> ถ้ากิ่งของปีชนเสาวันหรือเสาเดือน หรือเป็นปีม้าเดินทาง = มีแรงให้ย้าย ถ้าดวงปีนั้นหนุนคือย้ายได้ดี ถ้าดวงปีนั้นระวังคือมีแรงย้ายแต่ไม่ควรรีบ ถ้ากิ่งปีรวมกับเสาวัน = บ้านอบอุ่น เหมาะปรับปรุงหรือมีคนเข้ามาอยู่ ปีที่ไม่มีแรงเหล่านี้ = อยู่ที่เดิมดีกว่า</p></div>
+    <div class="g2 mt8"><div><small class="dim">🏠 ย้ายได้</small><div class="ywrap">${ylist(yearsWhere(R, (a) => a.topics.home.code === 'move'))}</div></div>
+    <div><small class="dim">🏠 มีแรงย้าย ควรระวัง</small><div class="ywrap">${ylist(yearsWhere(R, (a) => a.topics.home.code === 'forced'))}</div></div>
+    <div><small class="dim">🛠 ปรับปรุงบ้าน</small><div class="ywrap">${ylist(yearsWhere(R, (a) => a.topics.home.code === 'improve'))}</div></div>
+    <div><small class="dim">✈️ เดินทางดี</small><div class="ywrap">${ylist(yearsWhere(R, (a) => a.topics.travel.code === 'go'))}</div></div></div>`;
+}
+function luckyBlock(n) {
+  return n.useful.slice(0, 2).map((e) => `<div class="lucky"><span class="sw" style="background:${EL_COLOR[e]}"></span><div class="sm"><b>ธาตุ${EL_NAME[e]}</b> · ${EL_INFO[e].trait}<br>
+    <span class="dim">สี ${EL_INFO[e].color} · ทิศ${EL_INFO[e].dir} · ช่วง${EL_INFO[e].season}</span></div></div>`).join('')
+    + '<p class="sm dim">ใช้เป็นสีเสื้อ ของใช้ หรือการจัดโต๊ะทำงาน เพื่อเตือนใจให้เติมพลัง ไม่ได้มีผลเปลี่ยนดวงโดยตรง</p>';
+}
+function luckList(n) {
+  const now = Date.now();
+  return n.luck_pillars.slice(0, 7).map((l) => {
+    const on = Date.parse(l.start) <= now && now < Date.parse(l.end);
+    const sEl = charEl(l.pillar[0]), bEl = charEl(l.pillar[1]);
+    const desc = `${EL_NAME[sEl]}: ${ROLE_YEAR[roleOfEl(n, sEl)][n.favorability[sEl] > 0 ? 0 : 1]} · ${EL_NAME[bEl]}: ${ROLE_YEAR[roleOfEl(n, bEl)][n.favorability[bEl] > 0 ? 0 : 1]}`;
+    return `<div class="lrow2 ${on ? 'now' : ''}"><b class="lp">${elChar(l.pillar[0])}${elChar(l.pillar[1])}</b><div class="grow"><div class="row sb"><span class="sm"><b>${yr(l.start)}–${yr(l.end)}</b>${on ? ' · ตอนนี้' : ''}</span>${pill(l.tag, l.label_th)}</div><div class="sm dim">${desc}</div></div></div>`;
+  }).join('') + '<p class="sm dim mt8">วัยจรเป็นฉากหลังของทุกปีในรอบนั้น แต่ละปีและเดือนยังขึ้นลงได้ตามธาตุของช่วงนั้น</p>';
+}
+function calcBlock(p, n) {
+  return `<dl class="calc sm">
+    <div><dt>ปีจีนเกิด</dt><dd>${n.chinese_year} (ปีจีนเริ่ม 立春 ราว 4 ก.พ.)</dd></div>
+    <div><dt>เวลาที่ใช้</dt><dd>${p.time ? p.time + ' น. (UTC+7)' : 'ไม่ทราบเวลา'}${n.solar_correction_min ? ` ปรับเวลาสุริยะ ${n.solar_correction_min} นาที` : ''}</dd></div>
+    <div><dt>วัยจร</dt><dd>${n.luck_direction === 'forward' ? 'เดินหน้า' : 'ถอยหลัง'} เริ่ม ${fmtDate(n.luck_start)}</dd></div>
+    <div><dt>สัดส่วนตัวช่วย</dt><dd>${Math.round(n.strength.supportRatio * 100)}% (นับธาตุซ่อน เสาเดือน ×2.5)</dd></div>
+    <div><dt>ตัวคำนวณ</dt><dd>v${VERSION} · วันเปลี่ยนฤดูจากสูตรดาราศาสตร์ (Meeus) ทดสอบ 12 ชุด</dd></div></dl>`;
+}
+
+// ---------- year views ----------
+function chart25(R) {
+  const W = 340, H = 150, bw = W / 25, mid = 70, sc = 7;
+  const bars = R.annual.map((a, i) => {
+    const v = Math.max(-8, Math.min(8, a.me.score)), h = Math.max(3, Math.abs(v) * sc);
+    const y = v >= 0 ? mid - h : mid;
+    const col = { support: '#2F8A4C', neutral: '#C9A23B', caution: '#C2533B' }[a.me.tag];
+    const wdot = a.world?.tag === 'high' ? `<circle cx="${i * bw + bw / 2}" cy="${H - 22}" r="3.5" fill="#3346A0"/>` : '';
+    const sel = a.year === S.year ? `<rect x="${i * bw}" y="0" width="${bw}" height="${H - 14}" fill="#1C1B1A" opacity=".07" rx="3"/>` : '';
+    return `<g data-act="year" data-v="${a.year}" style="cursor:pointer">${sel}<rect x="${i * bw}" y="0" width="${bw}" height="${H}" fill="transparent"/>
+      <rect x="${i * bw + 2}" y="${y}" width="${bw - 4}" height="${h}" rx="2" fill="${col}"/>${wdot}
+      ${i % 4 === 0 ? `<text x="${i * bw + bw / 2}" y="${H - 2}" text-anchor="middle" font-size="10" fill="#6B675F">${String(a.year).slice(2)}</text>` : ''}</g>`;
+  }).join('');
+  return `<section class="card"><div class="row sb"><h2 class="mt0">ภาพรวม 25 ปี ${info('score')}</h2><span class="sm dim">แตะแท่งเพื่อเลือกปี</span></div>
+    <svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="คะแนนดวงรายปี 2026 ถึง 2050"><line x1="0" x2="${W}" y1="${mid}" y2="${mid}" stroke="#E4DED2"/>${bars}</svg>
+    <div class="legend sm"><span><i style="background:#2F8A4C"></i>หนุน</span><span><i style="background:#C9A23B"></i>กลาง</span><span><i style="background:#C2533B"></i>ระวัง</span><span><i class="dot" style="background:#3346A0"></i>โลกผันผวนสูง</span></div></section>`;
+}
+function yearStrip() {
+  let h = '';
+  for (let y = 2026; y <= 2050; y++) h += `<button class="ychip ${y === S.year ? 'on' : ''}" data-act="year" data-v="${y}" aria-pressed="${y === S.year}">${y}</button>`;
+  return `<nav class="ystrip" aria-label="เลือกปี">${h}</nav>`;
+}
+function meYear(Y) {
+  return `<section class="hero me">
+    <div class="row sb"><span class="sm dim">ฉัน · ${fmtDate(Y.start)} – ${fmtDate(Y.end)}</span>${pill(Y.me.tag, Y.me.label_th)}</div>
+    <div class="row base"><span class="big">${elChar(Y.pillar[0])}${elChar(Y.pillar[1])}</span><span class="dim">${Y.year} · ${esc(Y.elements_th)} · ปี${esc(Y.animal)}</span></div>
+    <p>${esc(Y.me.note_th)}</p>
+    <p class="sm dim">วัยจร ${esc(Y.luck_pillar || '–')} · โลกผันผวน${esc(Y.world?.label_th || '–')} · ช้อนของถูก ${esc(Y.topics.bargain.label_th)}</p>
+  </section>`;
+}
+function worldYearView(Y) {
+  const era = Y.year < 2044 ? `ยุค 9 ไฟ · ปีที่ ${Y.year - 2023} จาก 20` : `ยุค 1 น้ำ · ปีที่ ${Y.year - 2043} จาก 20`;
+  return `<section class="hero world">
+    <div class="row sb"><span class="sm dim">โลก · ${era} ${info('era')}</span>${Y.world ? pill(Y.world.tag, 'ผันผวน' + Y.world.label_th) : ''}</div>
+    <div class="row base"><span class="big">${esc(Y.pillar)}</span><span class="dim">${Y.year} · ${esc(Y.elements_th)}</span></div>
+    <div class="g2"><div class="box"><small>ดี</small><div>${esc(Y.world?.good_th)}</div></div><div class="box"><small>ระวัง</small><div>${esc(Y.world?.watch_th)}</div></div></div>
+  </section>`;
+}
+function topicCards(Y) {
+  return `<h2>8 ด้านของปี ${Y.year} <button class="info" data-act="view" data-v="guide" aria-label="ความหมายของป้าย">ⓘ</button></h2><div class="g2">${TOPICS.map(([k, th]) => {
+    const t = Y.topics[k];
+    const extra = (k === 'health' || k === 'home' || k === 'travel') && t.notes_th?.length ? `<small class="dim">${esc(t.notes_th[0])}</small>` : '';
+    return `<button class="card topic ${S.topic === k ? 'sel' : ''}" data-act="topic" data-v="${k}" aria-pressed="${S.topic === k}">
+      <span class="row sb"><b>${TOPIC_ICON[k]} ${TSHORT[k]}</b>${pill(t.code, t.label_th)}</span><span class="sm muted">${TIP[k][t.code]}</span>${extra}</button>`;
+  }).join('')}</div>`;
+}
+function yearNarrative(Y, R, months) {
+  const n = R.natal;
+  const sCh = Y.pillar[0], bCh = Y.pillar[1], sEl = charEl(sCh), bEl = charEl(bCh);
+  const sR = roleOfEl(n, sEl), bR = roleOfEl(n, bEl);
+  const fsel = (el) => (n.favorability[el] > 0 ? 0 : 1);
+  const luck = n.luck_pillars.find((l) => l.pillar === Y.luck_pillar);
+  const fx = Y.me.factors.filter((f) => FX[f.code]);
+  const kinds = [...new Set(fx.map((f) => f.code))];
+  const T = Y.topics;
+  const doL = [], avoidL = [];
+  if (Y.me.tag === 'support') doL.push('ลงแรงกับเป้าหมายใหญ่ เพิ่มรายได้ เริ่มสิ่งใหม่');
+  if (T.work.code === 'rise') doL.push('ขอเลื่อนตำแหน่ง สมัครงานใหม่ หรือรับบทบาทใหม่');
+  if (T.money.code === 'in') doL.push('เพิ่มยอดออม เอารายได้ส่วนเกินเข้าเงินเก็บ');
+  if (T.business.code === 'grow') doL.push('เพิ่มสินค้าหรือช่องทางขาย');
+  if (T.home.code === 'move') doL.push('ถ้าคิดจะย้ายบ้านหรือซื้อบ้าน ปีนี้มีจังหวะ');
+  if (T.home.code === 'improve') doL.push('ปรับปรุงบ้าน จัดบ้านใหม่');
+  if (T.travel.code === 'go') doL.push('เดินทาง ดูงาน เรียนต่อ');
+  if (T.gold.code === 'add') doL.push('ทยอยเพิ่มทองเป็นเงินสำรอง');
+  if (T.stock.code === 'buy') doL.push('เพิ่มการลงทุนหุ้นได้');
+  if (Y.me.tag === 'caution') avoidL.push('ลงทุนก้อนใหญ่ ค้ำประกัน ให้ยืมเงิน');
+  if (T.work.code === 'pressure') avoidL.push('รับงานเพิ่ม หรือลาออกกะทันหันโดยไม่มีแผน');
+  if (T.money.code === 'leak') avoidL.push('ก่อหนี้ใหม่ ซื้อของชิ้นใหญ่ที่ไม่จำเป็น');
+  if (T.health.code === 'caution') avoidL.push('ขับรถเร็ว กิจกรรมเสี่ยง นอนดึกสะสม');
+  if (T.home.code === 'forced') avoidL.push('ตัดสินใจย้ายแบบรีบร้อน');
+  if (T.travel.code === 'careful') avoidL.push('เดินทางโดยไม่เตรียมเอกสารและประกัน');
+  if (T.stock.code === 'rest') avoidL.push('ซื้อหุ้นก้อนใหญ่');
+  if (Y.world?.tag === 'high') avoidL.push('เก็งกำไรตามข่าว เพราะโลกปีนี้ผันผวนสูง');
+  if (!doL.length) doL.push('ทำตามแผนเดิม ออมสม่ำเสมอ');
+  const good = months.filter((m) => m.me.tag === 'support').map((m) => m.label_th.split(' ')[0]);
+  const bad = months.filter((m) => m.me.tag === 'caution').map((m) => m.label_th.split(' ')[0]);
+  return sec(`อ่านปี ${Y.year} แบบละเอียด`, `<div class="prose sm">
+    <p><b>พลังของปี</b> ปี ${elChar(sCh)}${elChar(bCh)} (${Y.animal}) ก้านปีเป็นธาตุ${EL_NAME[sEl]} = "${ROLE[sR].name}" ของคุณ ${n.favorability[sEl] > 0 ? '(ธาตุช่วย)' : '(ไม่ใช่ธาตุช่วย)'} หมายถึง${ROLE_YEAR[sR][fsel(sEl)]} ส่วนกิ่งปีเป็นธาตุ${EL_NAME[bEl]} = "${ROLE[bR].name}" หมายถึง${ROLE_YEAR[bR][fsel(bEl)]}</p>
+    ${luck ? `<p><b>ฉากหลังวัยจร</b> ปีนี้อยู่ในวัยจร ${elChar(luck.pillar[0])}${elChar(luck.pillar[1])} (${yr(luck.start)}–${yr(luck.end)}) ซึ่งโดยรวม${luck.label_th === 'หนุน' ? 'หนุน ปีที่กลางๆ ก็ยังพอไปได้' : luck.label_th === 'ระวัง' ? 'ไม่ค่อยหนุน ปีที่ดีก็ควรเก็บสำรองไว้ด้วย' : 'อยู่ระดับกลาง'}</p>` : ''}
+    ${kinds.length ? `<p><b>แรงปฏิกิริยาที่เกิดขึ้น</b></p><ul class="ul">${fx.map((f) => `<li>${esc(f.th)} <span class="${f.w > 0 ? 'pos' : 'neg'}">(${f.w > 0 ? '+' : ''}${f.w})</span></li>`).join('')}</ul>${kinds.map((k) => `<p class="dim">${FX[k]}</p>`).join('')}` : '<p><b>แรงปฏิกิริยา</b> ปีนี้ไม่มีการชนหรือรวมกับเสาเกิดที่เด่น ผลจึงมาจากธาตุของปีเป็นหลัก</p>'}
+    <p><b>ฝั่งโลก</b> โลกปีนี้ผันผวน${Y.world?.label_th || '–'} ด้านที่ดีคือ ${esc(Y.world?.good_th)} ด้านที่ต้องระวังคือ ${esc(Y.world?.watch_th)} ${Y.world?.tag === 'high' && Y.me.tag === 'support' ? 'ดวงคุณหนุนในปีที่โลกผันผวน เป็นจังหวะช้อนของถูกได้ แต่ควรทยอย' : Y.world?.tag === 'high' ? 'โลกร้อนแรง ให้ถือเงินสดและทองมากขึ้น' : ''}</p>
+    </div>
+    <div class="g2 mt8"><div class="box3 g"><small>ควรทำ</small><ul class="ul">${doL.map((x) => `<li>${x}</li>`).join('')}</ul></div>
+    <div class="box3 d"><small>ควรเลี่ยง</small><ul class="ul">${(avoidL.length ? avoidL : ['ไม่มีข้อห้ามเด่น ใช้ชีวิตตามปกติ']).map((x) => `<li>${x}</li>`).join('')}</ul></div></div>
+    <p class="sm mt8"><b>เดือนเด่น:</b> ${good.join(' ') || '–'} · <b>เดือนระวัง:</b> ${bad.join(' ') || '–'}</p>`);
+}
+function worldTopics(Y) {
+  const w = Y.world?.tag || 'mid', L = LABEL_TH.world, watch = Y.world?.watch_th || '';
+  const disaster = /น้ำท่วม|แผ่นดินไหว|ดินถล่ม|ไฟป่า|พายุ|ฝนหนัก/.test(watch);
+  const rows = [
+    ['work', 'สายงานที่โลกหนุน: ' + (Y.world?.good_th || '–'), 'none', 'ข้อมูล'],
+    ['money', w === 'high' ? 'สภาพคล่องตึง ถือเงินสดมากขึ้น' : w === 'mid' ? 'เงินหมุนปกติ' : 'เงินหมุนคล่อง', w, L[w]],
+    ['health', 'ภัยที่ต้องระวัง: ' + (watch || '–'), w, L[w]],
+    ['business', 'ธุรกิจที่โลกหนุน: ' + (Y.world?.good_th || '–'), 'none', 'ข้อมูล'],
+    ['home', disaster ? 'ระวังภัยต่อที่อยู่อาศัย: ' + watch + ' ตรวจประกันบ้าน' : 'ไม่มีภัยต่อที่อยู่อาศัยเด่น', disaster ? 'high' : 'low', disaster ? 'ระวัง' : 'ปกติ'],
+    ['travel', w === 'high' || disaster ? 'ติดตามข่าวก่อนเดินทาง ซื้อประกันเดินทาง' : 'เดินทางได้ตามปกติ', w === 'high' || disaster ? 'high' : 'low', w === 'high' || disaster ? 'ระวัง' : 'ปกติ'],
+    ['gold', Y.topics.gold.code === 'add' ? 'แรงหนุนทองเด่น' : 'แรงหนุนทองเบา', Y.topics.gold.code, Y.topics.gold.label_th],
+    ['stock', w === 'high' ? 'ตลาดแกว่งแรง' : w === 'mid' ? 'ตลาดปกติ มีแกว่งบางช่วง' : 'ตลาดค่อนข้างสงบ', w, 'แกว่ง' + L[w]],
+  ];
+  return `<h2>8 ด้านฝั่งโลก</h2><div class="list">${rows.map(([k, b, c, d]) => `<div class="card lrow"><b class="w80">${TOPIC_ICON[k]} ${TSHORT[k]}</b><span class="sm grow">${esc(b)}</span>${pill(c, d)}</div>`).join('')}</div>`;
+}
+function worldNarrative(Y) {
+  const sEl = charEl(Y.pillar[0]), bEl = charEl(Y.pillar[1]);
+  const era = Y.year < 2044
+    ? 'ยุค 9 ไฟ (2024–2043) ตามหลักฮวงจุ้ยซานหยวน เด่นเรื่องเทคโนโลยี AI สื่อ พลังงาน ความงาม และจิตวิญญาณ แต่มากับความร้อน ความขัดแย้ง และกระแสที่มาเร็วไปเร็ว'
+    : 'ยุค 1 น้ำ (2044–2063) ตามหลักฮวงจุ้ยซานหยวน เด่นเรื่องการค้า การเคลื่อนย้าย ข้อมูล การสื่อสาร และความยืดหยุ่น';
+  return sec(`อ่านโลกปี ${Y.year} แบบละเอียด`, `<div class="prose sm">
+    <p><b>ยุค</b> ${era}</p>
+    <p><b>ธาตุของปี</b> ก้านปี ${elChar(Y.pillar[0])} ธาตุ${EL_NAME[sEl]} เกี่ยวกับ${W_THEME[sEl]} กิ่งปี ${elChar(Y.pillar[1])} ธาตุ${EL_NAME[bEl]} เกี่ยวกับ${W_THEME[bEl]}${sEl === bEl ? ' ทั้งก้านและกิ่งเป็นธาตุเดียวกัน พลังจึงแรงเป็นพิเศษ' : ''}</p>
+    <p><b>สรุป</b> ด้านที่ดี: ${esc(Y.world?.good_th)} · ด้านที่ต้องระวัง: ${esc(Y.world?.watch_th)} ระดับผันผวน${Y.world?.label_th || '–'}</p>
+    <p class="dim">ฝั่งโลกเป็นการอ่านตามกรอบปาจื้อเชิงสัญลักษณ์ ไม่ใช่การพยากรณ์เศรษฐกิจ ใช้คู่กับข่าวและข้อมูลจริงเสมอ</p></div>`);
+}
+function noteCard(p, Y) {
+  const v = p.notes?.[Y.year] || '';
+  return `<section class="card"><h2 class="mt0">📝 ปี ${Y.year} เกิดอะไรจริง</h2>
+    <p class="sm dim">จดเหตุการณ์จริงไว้เทียบกับที่แอปบอก ปีหน้ามาดูว่าตรงแค่ไหน</p>
+    <textarea id="note" rows="3" maxlength="1000" placeholder="เช่น ได้ขึ้นเงินเดือน ย้ายบ้าน ร้านยอดตก ป่วยช่วง มี.ค.">${esc(v)}</textarea>
+    <div class="row sb"><span class="sm dim" id="notemsg">${esc(S.noteMsg)}</span><button class="btn2" data-act="savenote" data-v="${Y.year}">บันทึก</button></div></section>`;
+}
+function monthGrid(months) {
+  return `<div class="row sb mt"><h2>รายเดือน</h2><span class="sm dim">แตะเพื่อดูรายละเอียด</span></div>
+  <div class="g4">${months.map((m) => {
+    const t = S.view === 'me' ? m.me : m.world;
+    return `<button class="mcell t-${TONE[t?.tag] || 'n'} ${m.id === S.month ? 'sel' : ''}" data-act="month" data-v="${m.id}" aria-pressed="${m.id === S.month}">
+      <b>${m.label_th.split(' ')[0]}</b><small>${esc(m.month_pillar)}</small><small>${esc(t?.label_th || '–')}</small></button>`;
+  }).join('')}</div>`;
+}
+function monthDetail(M, R) {
+  const tp = M.topics, n = R.natal;
+  const mEl = charEl(M.month_pillar[0]), bEl = charEl(M.month_pillar[1]);
+  const factors = M.me.factors.slice().sort((a, b) => Math.abs(b.w) - Math.abs(a.w)).slice(0, 6)
+    .map((f) => `<li><span>${esc(f.th)}</span><span class="${f.w > 0 ? 'pos' : 'neg'}">${f.w > 0 ? '+' : ''}${f.w}</span></li>`).join('');
+  return `<section class="card">
+    <div class="row sb"><span class="sm dim">${esc(M.label_th)} · ${fmtDate(M.start)} – ${fmtDate(M.end)}</span><b>${elChar(M.month_pillar[0])}${elChar(M.month_pillar[1])}</b></div>
+    <div class="g2 mt8">
+      <div class="box2"><small>ฉัน</small>${pill(M.me.tag, M.me.label_th)}<div class="sm">${esc(M.me.note_th)}</div></div>
+      <div class="box2"><small>โลก</small>${M.world ? pill(M.world.tag, 'ผันผวน' + M.world.label_th) : '–'}<div class="sm">ดี: ${esc(M.world?.good_th)}<br>ระวัง: ${esc(M.world?.watch_th)}</div></div>
+    </div>
+    <p class="sm mt8">เดือนนี้ธาตุ${EL_NAME[mEl]} (${ROLE[roleOfEl(n, mEl)].name}): ${ROLE_YEAR[roleOfEl(n, mEl)][n.favorability[mEl] > 0 ? 0 : 1]}${mEl !== bEl ? ` · ธาตุ${EL_NAME[bEl]} (${ROLE[roleOfEl(n, bEl)].name}): ${ROLE_YEAR[roleOfEl(n, bEl)][n.favorability[bEl] > 0 ? 0 : 1]}` : ''}</p>
+    <div class="tline">${TOPICS.map(([k]) => `<span>${TSHORT[k]} ${pill(tp[k].code, tp[k].label_th)}</span>`).join('')}</div>
+    <details><summary>ทำไมได้ผลนี้ (คะแนน ${M.me.score})</summary><ul class="facts">${factors}</ul><button class="link sm" data-act="term" data-v="clash">คำว่า ชน รวม ทับ หมายถึงอะไร</button></details>
+  </section>`;
+}
+function topicTable(months) {
+  const th = TSHORT[S.topic];
+  return `<h2>${TOPIC_ICON[S.topic]} ${th}: ฉัน vs โลก ทีละเดือน</h2><div class="card tbl">
+    <div class="tr hd"><span>เดือน</span><span>ฉัน</span><span>โลก</span><span>${th}</span></div>
+    ${months.map((m) => `<div class="tr"><span>${esc(m.label_th.split(' ')[0])}</span>${pill(m.me.tag, m.me.label_th)}${m.world ? pill(m.world.tag, m.world.label_th) : '<span>–</span>'}${pill(m.topics[S.topic].code, m.topics[S.topic].label_th)}</div>`).join('')}
+  </div>`;
+}
+function timeline(R) {
+  const p = currentPerson();
+  return `<h2>ไทม์ไลน์ 2026–2050</h2><div class="list">${R.annual.map((a) => {
+    const t = S.view === 'me' ? a.me : a.world;
+    const note = S.view === 'me' ? `งาน${a.topics.work.label_th} · เงิน${a.topics.money.label_th} · ${a.topics.home.label_th}` : a.world?.watch_th;
+    const mark = S.view === 'me' && p.notes?.[a.year] ? ' 📝' : '';
+    return `<button class="card lrow ${a.year === S.year ? 'sel' : ''}" data-act="year" data-v="${a.year}"><b class="w56">${a.year}</b><span class="sm grow">${esc(a.pillar)} · ${esc(note)}${mark}</span>${pill(t?.tag, t?.label_th || '–')}</button>`;
+  }).join('')}</div>`;
+}
+
+// ---------- people & form ----------
+function onboarding() {
+  return `<section class="hero me"><span class="big">ปาจื้อ</span><p>วิเคราะห์ธาตุและบุคลิก แล้วดูดวงรายปีรายเดือน 2026–2050 ทั้งฝั่งตัวเองและฝั่งโลก 8 ด้าน การงาน เงิน สุขภาพ ธุรกิจ ที่อยู่อาศัย เดินทาง ทอง หุ้น</p>
+    <button class="btn" data-act="add">เพิ่มวันเกิดคนแรก</button></section>
+  <div class="card sm"><b>จัดทำขึ้นเพื่อ</b> ${PURPOSE} <button class="link" data-act="view" data-v="guide">อ่านคู่มือ</button></div>`;
+}
+function panelHtml() {
+  if (!S.panel) return '';
+  const body = S.panel === 'people' ? peoplePanel() : formPanel();
+  return `<div class="scrim" data-act="close"></div><section class="sheet" role="dialog" aria-modal="true" aria-label="${S.panel === 'people' ? 'รายชื่อคน' : 'เพิ่มวันเกิด'}">${body}</section>`;
+}
+function peoplePanel() {
+  const store = { db: 'บันทึกในบัญชี claude.ai ของคุณ (เห็นคนเดียว)', local: 'บันทึกในเบราว์เซอร์นี้', memory: 'ยังไม่ได้บันทึก (หายเมื่อปิดหน้า)' }[S.storage];
+  const cy = S.year || 2026;
+  return `<div class="row sb"><h2>ดวงของใคร</h2><button class="icon" data-act="close" aria-label="ปิด">✕</button></div>
+  <div class="list">${S.people.map((p) => {
+    const R = readingFor(p); const a = R.annual.find((x) => x.year === cy);
+    return `<div class="card lrow ${p.id === S.current ? 'sel' : ''}">
+      <button class="grow plain" data-act="pick" data-v="${esc(p.id)}"><span class="avatar">${esc(R.natal.pillars.day[0])}</span><span class="who-t"><b>${esc(p.name || 'ไม่มีชื่อ')}</b><small>${esc(fmtBirth(p))} · ${p.gender === 'F' ? 'หญิง' : 'ชาย'}</small></span></button>
+      ${pill(a.me.tag, a.me.label_th)}
+      <button class="icon" data-act="del" data-v="${esc(p.id)}" aria-label="ลบ ${esc(p.name)}">🗑</button></div>`;
+  }).join('') || '<p class="muted">ยังไม่มีรายชื่อ</p>'}</div>
+  <p class="sm dim">ป้ายคือดวงปี ${cy} ของแต่ละคน · ${store}</p>
+  <button class="btn" data-act="add">+ เพิ่มคน</button>
+  ${STANDALONE ? `<div class="g2"><button class="btn2 ghost2" data-act="backup">⬇ สำรองข้อมูล</button><label class="btn2 ghost2 filebtn">⬆ นำเข้าข้อมูล<input type="file" id="restore" accept=".json,application/json" hidden></label></div>
+  <p class="sm dim" id="bmsg">ข้อมูลเก็บในเครื่องนี้เท่านั้น สำรองไว้เป็นไฟล์ก่อนล้างเบราว์เซอร์หรือเปลี่ยนเครื่อง</p>` : ''}`;
+}
+function formPanel() {
+  return `<div class="row sb"><h2>เพิ่มวันเกิด</h2><button class="icon" data-act="close" aria-label="ปิด">✕</button></div>
+  <form id="pf" novalidate>
+    <label>ชื่อเล่น<input name="name" maxlength="40" placeholder="เช่น แม่ น้องฝน" required></label>
+    <fieldset><legend>เพศ (ใช้หาทิศของวัยจร)</legend><div class="g2">
+      <label class="radio"><input type="radio" name="gender" value="F" checked>หญิง</label>
+      <label class="radio"><input type="radio" name="gender" value="M">ชาย</label></div></fieldset>
+    <div class="g2"><label>วันเกิด<input type="date" name="date" min="1900-01-01" max="2100-12-31" required></label>
+    <label>เวลาเกิด<input type="time" name="time"></label></div>
+    <label class="check"><input type="checkbox" name="notime">ไม่ทราบเวลาเกิด (ดู 3 เสา)</label>
+    <label>จังหวัดที่เกิด (ไม่บังคับ)<select name="lon">${PROVINCES.map(([v, t]) => `<option value="${v}">${t}</option>`).join('')}</select>
+      <small class="dim">ปรับเป็นเวลาสุริยะจริง มีผลเมื่อเกิดใกล้รอยต่อยาม</small></label>
+    <div id="preview" class="card soft sm">กรอกวันเกิดเพื่อดูตัวอย่าง 4 เสา</div>
+    <label class="check"><input type="checkbox" name="consent">เจ้าของวันเกิดยินยอมให้บันทึกข้อมูลนี้</label>
+    <p id="ferr" class="err" role="alert">${esc(S.err)}</p>
+    <button class="btn" type="submit">บันทึกและดูดวง</button>
+  </form>`;
+}
+function formPerson(f) {
+  const fd = new FormData(f); const lon = fd.get('lon');
+  return { name: String(fd.get('name') || '').trim(), gender: fd.get('gender'), date: fd.get('date'),
+    time: fd.get('notime') ? null : fd.get('time') || null, tz: 7, longitude: lon ? +lon : undefined };
+}
+function updatePreview() {
+  const f = document.getElementById('pf'); if (!f) return;
+  const box = document.getElementById('preview'); const p = formPerson(f);
+  if (!p.date) { box.textContent = 'กรอกวันเกิดเพื่อดูตัวอย่าง 4 เสา'; return; }
+  try {
+    const C = natalChart(p); const P = C.pillars; const pl = (v) => (v ? pillar(...v) : '–');
+    box.innerHTML = `<div class="pgrid"><div class="pc"><small>ชั่วโมง</small><b>${pl(P.hour)}</b></div><div class="pc on"><small>วัน</small><b>${pl(P.day)}</b></div><div class="pc"><small>เดือน</small><b>${pl(P.month)}</b></div><div class="pc"><small>ปี</small><b>${pl(P.year)}</b></div></div>
+      <div class="mt8">${STRENGTH_TH[C.strength.level]} · ธาตุช่วย ${C.useful.map((e) => EL_NAME[e]).join(', ')}${C.solarCorrectionMin ? ` · ปรับเวลา ${C.solarCorrectionMin} นาที` : ''}</div>`;
+  } catch (e) { box.textContent = e.message; }
+}
+
+// ---------- events ----------
+app.addEventListener('click', async (e) => {
+  const el = e.target.closest('[data-act]'); if (!el) return;
+  const act = el.dataset.act, v = el.dataset.v;
+  if (act === 'term') { S.view = 'guide'; S.term = v; render(); return; }
+  if (act === 'view') { S.view = v; S.noteMsg = ''; window.scrollTo({ top: 0 }); render(); }
+  else if (act === 'year' || act === 'goyear') {
+    S.year = +v; S.noteMsg = '';
+    if (act === 'goyear') S.view = 'me';
+    const R = readingFor(currentPerson()); S.month = R.monthly.find((m) => m.chinese_year === S.year).id;
+    render(); window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  else if (act === 'month') { S.month = v; render(); }
+  else if (act === 'topic') { S.topic = v; render(); }
+  else if (act === 'people') { S.panel = 'people'; render(); }
+  else if (act === 'add') { S.panel = 'form'; S.err = ''; render(); }
+  else if (act === 'close') { S.panel = null; render(); }
+  else if (act === 'pick') { S.current = v; S.panel = null; S.view = 'profile'; S.year = null; await save(); render(); window.scrollTo({ top: 0 }); }
+  else if (act === 'savenote') {
+    const p = currentPerson(); const txt = document.getElementById('note').value.trim();
+    p.notes = { ...(p.notes || {}) }; if (txt) p.notes[v] = txt; else delete p.notes[v];
+    const ok = await save(); S.noteMsg = ok ? 'บันทึกแล้ว' : 'บันทึกไม่ได้ในเบราว์เซอร์นี้'; render();
+  }
+  else if (act === 'backup') {
+    const blob = new Blob([JSON.stringify({ app: 'bazi', version: 1, list: S.people, current: S.current }, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'bazi-backup-' + new Date().toISOString().slice(0, 10) + '.json';
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+    const m = document.getElementById('bmsg'); if (m) m.textContent = 'ดาวน์โหลดไฟล์สำรองแล้ว';
+  }
+  else if (act === 'del') {
+    if (el.dataset.confirm !== '1') { el.dataset.confirm = '1'; el.textContent = 'ลบ?'; el.classList.add('danger'); return; }
+    S.people = S.people.filter((p) => p.id !== v);
+    if (S.current === v) { S.current = S.people[0]?.id ?? null; S.year = null; }
+    await save(); render();
+  }
+});
+app.addEventListener('input', (e) => {
+  if (e.target.closest('#pf')) { S.err = ''; const er = document.getElementById('ferr'); if (er) er.textContent = ''; updatePreview(); }
+  if (e.target.id === 'note') { const m = document.getElementById('notemsg'); if (m) m.textContent = 'ยังไม่ได้บันทึก'; }
+});
+app.addEventListener('change', async (e) => {
+  if (e.target.closest('#pf')) updatePreview();
+  if (e.target.id === 'restore' && e.target.files[0]) {
+    const m = document.getElementById('bmsg');
+    try {
+      const v = JSON.parse(await e.target.files[0].text());
+      if (!v || !Array.isArray(v.list)) throw new Error();
+      const ok = v.list.filter((p) => p && typeof p.id === 'string' && validPerson(p));
+      const have = new Set(S.people.map((p) => p.id));
+      const added = ok.filter((p) => !have.has(p.id));
+      S.people.push(...added); if (!S.current) S.current = S.people[0]?.id ?? null;
+      S.cache.clear(); S.year = null; await save(); render();
+      const m2 = document.getElementById('bmsg'); if (m2) m2.textContent = `นำเข้า ${added.length} คน${ok.length - added.length ? ` (ข้าม ${ok.length - added.length} คนที่มีอยู่แล้ว)` : ''}`;
+    } catch { if (m) m.textContent = 'ไฟล์นี้ไม่ใช่ไฟล์สำรองของแอปนี้'; }
+  }
+});
+app.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const f = e.target; const p = formPerson(f); const fd = new FormData(f);
+  const er = document.getElementById('ferr'); const fail = (m) => { S.err = m; er.textContent = m; };
+  if (!p.name) return fail('ใส่ชื่อเล่นก่อน');
+  if (!p.date) return fail('ใส่วันเกิดก่อน');
+  if (!fd.get('notime') && !p.time) return fail('ใส่เวลาเกิด หรือติ๊ก "ไม่ทราบเวลาเกิด"');
+  if (!fd.get('consent')) return fail('ต้องได้รับความยินยอมจากเจ้าของวันเกิดก่อนบันทึก');
+  try { natalChart(p); } catch (x) { return fail(x.message); }
+  p.id = 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  S.people.push(p); S.current = p.id; S.panel = null; S.year = null; S.view = 'profile'; S.err = '';
+  await save(); render(); window.scrollTo({ top: 0 });
+});
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && S.panel) { S.panel = null; render(); } });
+
+initStorage();
+
+}
+</script>
+<script>if('serviceWorker' in navigator&&location.protocol==='https:'){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}</script>
+</body>
+</html>
