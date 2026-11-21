@@ -26,9 +26,9 @@ main.wrap{display:flex;flex-direction:column;gap:14px;padding-top:14px;padding-b
 .who{display:flex;align-items:center;gap:10px;background:none;border:0;padding:4px 0;min-height:48px;text-align:left}
 .avatar{width:42px;height:42px;border-radius:21px;background:var(--ink);color:var(--bg);display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:18px;flex:none}
 .who-t{display:flex;flex-direction:column;line-height:1.3}.who-t small{color:var(--muted);font-size:13px}
-.seg{display:grid;grid-template-columns:1fr 1fr 1fr;background:var(--nb);border-radius:14px;padding:4px;gap:4px}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);background:var(--nb);border-radius:14px;padding:4px;gap:4px}
 .seg button{height:42px;border:0;border-radius:10px;background:none;color:var(--muted);font-weight:500}
-.seg button.on{background:#fff;font-weight:600}.seg button{font-size:14px}.seg .on.me,.seg .on.profile{color:var(--fire)}.seg .on.world{color:var(--indigo)}
+.seg button.on{background:#fff;font-weight:600}.seg button{font-size:14px}.seg .on.me,.seg .on.profile,.seg .on.day{color:var(--fire)}.seg .on.world{color:var(--indigo)}
 h2{font-size:17px;font-weight:600;margin:6px 0 0}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
 .card.soft{background:var(--bg)}
@@ -131,6 +131,15 @@ footer.fine{border-top:1px solid var(--line);padding-top:12px}
 .hero.world{background:linear-gradient(160deg,#2B3374 0%,#1E2452 75%)}
 .hero .big span{filter:brightness(1.35)}
 .ghost2{background:#fff;color:var(--ink);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px}
+
+.dnav{display:flex;gap:8px;align-items:center}.dnav input{flex:1;height:44px;border:1px solid #D8D1C4;border-radius:12px;padding:0 10px;background:#fff;min-width:0}
+.ctx{display:flex;flex-wrap:wrap;gap:6px 14px;color:#CFC8BB}
+.dtop{gap:6px}.dt{border-radius:12px;padding:8px 2px;display:flex;flex-direction:column;align-items:center;gap:1px;text-align:center}.dt b{font-size:12px}.dt small{font-size:12px}
+.box3 b{font-size:15px}.box3 span.sm{margin-bottom:4px}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-top:8px}.cw{text-align:center;font-size:12px;color:var(--muted)}
+.cday{border:0;border-radius:10px;padding:5px 0;display:flex;flex-direction:column;align-items:center;min-height:50px}.cday b{font-size:15px}.cday small{font-size:10px;opacity:.85}
+.cday.today{box-shadow:inset 0 0 0 2px var(--fire)}.cday.sel{outline:2px solid var(--ink);outline-offset:-2px}
+.wide{width:100%}
 :focus-visible{outline:3px solid var(--indigo);outline-offset:2px}
 </style>
 </head>
@@ -141,7 +150,7 @@ footer.fine{border-top:1px solid var(--line);padding-top:12px}
 // Works in browser, React Native, or Node (ES module).
 // Symbolic readings only: not a prediction of real events, not financial or medical advice.
 
-const VERSION = '2.2.0';
+const VERSION = '2.3.0';
 const STEMS = '甲乙丙丁戊己庚辛壬癸';
 const BRANCHES = '子丑寅卯辰巳午未申酉戌亥';
 const EL = ['wood', 'fire', 'earth', 'metal', 'water'];
@@ -473,7 +482,7 @@ const iso = (ms, tz) => {
   return `${d}${sign}${String(Math.floor(a)).padStart(2, '0')}:${String(Math.round((a % 1) * 60)).padStart(2, '0')}`;
 };
 const luckAt = (C, ms) => C.luck.find((l) => l.start <= ms && ms < l.end) ?? null;
-const THRESH = { annual: { hi: 1.5, lo: -2.5, luckWeight: 0.25 }, monthly: { hi: 0.5, lo: -2.0 }, base: { support: 0.7, neutral: 0, caution: -0.7 } };
+const THRESH = { annual: { hi: 1.5, lo: -2.5, luckWeight: 0.25 }, monthly: { hi: 0.5, lo: -2.0 }, daily: { hi: 0.25, lo: -2.5 }, dayBase: { support: 0.5, neutral: 0, caution: -0.5 }, base: { support: 0.7, neutral: 0, caution: -0.7 } };
 
 /** Build full reading for years [from, to] (Chinese years, start at 立春). */
 function reading(person, { from = 2026, to = 2050 } = {}) {
@@ -549,6 +558,51 @@ function reading(person, { from = 2026, to = 2050 } = {}) {
     },
     annual, monthly,
   };
+}
+
+const HOUR_TH = ['23:00–00:59', '01:00–02:59', '03:00–04:59', '05:00–06:59', '07:00–08:59', '09:00–10:59', '11:00–12:59', '13:00–14:59', '15:00–16:59', '17:00–18:59', '19:00–20:59', '21:00–22:59'];
+const natalCache = new Map();
+/**
+ * Daily readings for `days` civil dates from `startDate` (YYYY-MM-DD, local tz), inside the span of R.
+ * Day score = day pillar vs chart (with year, month and luck branches as context) + base from the month's tag.
+ */
+function daily(person, R, startDate, days = 1) {
+  const key = JSON.stringify([person.date, person.time, person.gender, person.longitude, person.tz]);
+  if (!natalCache.has(key)) natalCache.set(key, natalChart(person));
+  const C = natalCache.get(key), tz = C.input.tz;
+  const [y0, m0, d0] = startDate.split('-').map(Number);
+  const out = [];
+  for (let k = 0; k < days; k++) {
+    const dt = new Date(Date.UTC(y0, m0 - 1, d0 + k));
+    const Y = dt.getUTCFullYear(), Mo = dt.getUTCMonth() + 1, D = dt.getUTCDate();
+    const noon = Date.UTC(Y, Mo - 1, D, 12) - tz * 3600000;
+    const M = monthFor(R, noon);
+    if (!M) continue;
+    const [ds, db] = dayPillarOfDate(Y, Mo, D);
+    const yb = BRANCHES.indexOf(M.year_pillar[1]), mb = BRANCHES.indexOf(M.month_pillar[1]);
+    const ctx = [{ name: 'ปีนี้', branch: yb }, { name: 'เดือนนี้', branch: mb }];
+    if (M.luck_pillar) ctx.push({ name: 'วัยจร', branch: BRANCHES.indexOf(M.luck_pillar[1]) });
+    const f = scorePeriod(C, ds, db, ctx);
+    const sc = r2(f.score + THRESH.dayBase[M.me.tag]);
+    const tag = meTag(sc, THRESH.daily.hi, THRESH.daily.lo);
+    // hours: 12 two-hour blocks; stem from day stem (五鼠遁)
+    const hours = Array.from({ length: 12 }, (_, i) => {
+      const hs = ((ds % 5) * 2 + i) % 10;
+      let w = C.fav[S_EL[hs]] * 0.5 + C.fav[B_EL[i]];
+      if (mod(i - C.pillars.day[1], 12) === 6) w -= 2;
+      if (mod(i - db, 12) === 6) w -= 1;
+      if (SIX.some(([x, z]) => (x === i && z === C.pillars.day[1]) || (z === i && x === C.pillars.day[1]))) w += 0.5;
+      return { branch: BRANCHES[i], animal: ANIMAL[i], pillar: pillar(hs, i), time_th: HOUR_TH[i], score: r2(w) };
+    });
+    const ranked = [...hours].sort((a, b) => b.score - a.score);
+    const iso2 = `${Y}-${String(Mo).padStart(2, '0')}-${String(D).padStart(2, '0')}`;
+    out.push({ date: iso2, weekday: dt.getUTCDay(), pillar: pillar(ds, db), animal: ANIMAL[db],
+      elements_th: EL_TH[EL[S_EL[ds]]] + '+' + EL_TH[EL[B_EL[db]]], month_id: M.id, month_pillar: M.month_pillar, year: M.chinese_year,
+      me: { tag, label_th: LABEL_TH.me[tag], score: sc, note_th: noteOf(f.factors), factors: f.factors },
+      world: M.world, topics: topics(C, tag, M.world, ds, db, f.factors),
+      good_hours: ranked.filter((h) => h.score > 0).slice(0, 3), bad_hours: hours.filter((h) => h.score <= -2), hours });
+  }
+  return out;
 }
 
 /** Find the monthly row for an instant (ms) inside a reading. */
@@ -676,6 +730,8 @@ const GLOSS = [
     ['solar', 'เวลาสุริยะจริง', 'ปรับเวลาเกิดตามลองจิจูดจังหวัด มีผลเฉพาะคนเกิดใกล้รอยต่อยาม (ทุก 2 ชั่วโมงเลขคี่)'],
     ['horse', 'ม้าเดินทาง (驛馬)', 'กิ่งดินที่บอกการเคลื่อนไหว หาจากกิ่งของเสาวันหรือเสาปี เช่น เกิดวันเสือ ม้า หมา → ม้าเดินทางคือลิง ปีหรือเดือนที่ตรงกับม้าเดินทางมักมีการย้าย เดินทาง เปลี่ยนงาน'],
     ['home', 'ตำแหน่งบ้าน', 'กิ่งของเสาวัน (และเสาเดือนเรื่องครอบครัว) ถ้าปีนั้นชนตำแหน่งนี้ = มีแรงให้ย้ายหรือเปลี่ยนที่อยู่ ถ้ารวมกัน = บ้านอบอุ่น มีคนเข้ามา'],
+    ['hours', 'ยามมงคล (12 ยาม)', 'วันหนึ่งแบ่งเป็น 12 ยาม ยามละ 2 ชั่วโมง เริ่มยามหนู 23:00 ยามที่มีธาตุช่วยและไม่ชนเสาวันเกิดคือช่วงเวลาดี ยามที่ชนกิ่งของเสาวันเกิดคือช่วงควรระวัง'],
+    ['daily', 'ดวงรายวัน', 'อ่านจากเสาวันของวันนั้นเทียบกับดวงเกิด รวมกับจังหวะของเดือน เปลี่ยนเร็ว เหมาะใช้เลือกวันนัดหมาย ไม่ควรใช้ตัดสินเรื่องใหญ่ลำพัง'],
     ['era', 'ยุค 9 ไฟ / ยุค 1 น้ำ', 'รอบ 20 ปีตามหลักฮวงจุ้ย ยุค 9 (2024–2043) เด่นเรื่องเทคโนโลยี สื่อ พลังงาน ยุค 1 (2044–2063) เด่นเรื่องการค้า การเคลื่อนไหว ข้อมูล'],
   ]],
   ['แรงปฏิกิริยา (ในหัวข้อ "ทำไมได้ผลนี้")', [
@@ -714,7 +770,8 @@ function guideView() {
   <section class="card"><h2 class="mt0">วิธีใช้</h2><ol class="steps">
     <li><b>เพิ่มคน</b> แตะชื่อด้านบน → "+ เพิ่มคน" กรอกชื่อ เพศ วันเกิด เวลาเกิด (ไม่ทราบให้ติ๊ก) จังหวัดเกิด และติ๊กยินยอม</li>
     <li><b>วิเคราะห์ดวง</b> ดูธาตุประจำตัว สมดุลธาตุ ด้านเด่น แนวทาง 6 ด้าน และวัยจร 10 ปี</li>
-    <li><b>ดวงฉันรายปี</b> แตะแท่งกราฟหรือเลือกปี ดู 6 ด้านของปีนั้น แตะการ์ดด้านไหนเพื่อดูตารางทีละเดือน</li>
+    <li><b>รายวัน</b> ดูดวงวันนี้ ยามมงคล สีเติมพลัง และปฏิทินทั้งเดือน กด ‹ › เพื่อเลื่อนวัน หรือแตะวันในปฏิทิน</li>
+    <li><b>รายปี</b> แตะแท่งกราฟหรือเลือกปี ดู 6 ด้านของปีนั้น แตะการ์ดด้านไหนเพื่อดูตารางทีละเดือน</li>
     <li><b>รายเดือน</b> แตะเดือนเพื่อดูรายละเอียด และเปิด "ทำไมได้ผลนี้" เพื่อดูว่าคะแนนมาจากอะไร</li>
     <li><b>ดวงโลก</b> ดูว่าโลกปีนั้นผันผวนแค่ไหน อะไรดี อะไรต้องระวัง</li>
     <li><b>จดสิ่งที่เกิดจริง</b> ในหน้ารายปี แล้วกลับมาเทียบว่าแอปตรงแค่ไหน</li>
@@ -723,12 +780,121 @@ function guideView() {
   <section class="card"><h2 class="mt0">ที่มาและวิธีคำนวณ</h2><div class="prose sm">
     <p><b>ปฏิทิน</b> คำนวณตำแหน่งดวงอาทิตย์ด้วยสูตรจากหนังสือ Astronomical Algorithms (Jean Meeus) เพื่อหาวันเปลี่ยนฤดู 12 จุด คลาดเคลื่อนไม่เกินราว 10 นาที เสาวันคำนวณจากเลขวันจูเลียน ทดสอบกับวันอ้างอิงที่ทราบผลแน่นอน</p>
     <p><b>หลักตีความ</b> ใช้หลักปาจื้อสายจื่อผิง (子平) ที่สืบมาจากตำราคลาสสิก เช่น 《子平真詮》 และ 《滴天髓》 ได้แก่ ความแข็งอ่อนของธาตุประจำตัว ธาตุช่วย 10 เทพ การชน รวม ทับ และวัยจร</p>
+    <p><b>รายวัน</b> คะแนนเสาวัน + ฐานจากเดือน (หนุน +0.5, ระวัง −0.5) เกณฑ์ ≥0.25 หนุน ≤−2.5 ระวัง ยามมงคลคิดจากธาตุของยามและการชนเสาวันเกิด</p>
     <p><b>การให้คะแนน</b> ธาตุช่วย +1 ถึง +2 ธาตุกด −1 ชนเสาวัน −2 ชนเสาอื่น −1 ทับ −1 ถึง −2 รวม +0.5 ถึง +1 สามประสาน ±1 ปีรวมวัยจร 25% เกณฑ์ปี ≥1.5 หนุน ≤−2.5 ระวัง เกณฑ์เดือน ≥0.5 หนุน ≤−2 ระวัง</p>
     <p><b>ข้อจำกัด</b> น้ำหนักคะแนนเป็นการตั้งค่าของแอปนี้ หมอดูแต่ละสำนักอาจให้ผลต่างกัน ฝั่งโลกเป็นตารางที่ตั้งตามกรอบปาจื้อ ผลลัพธ์เหมือนเดิมทุกครั้งที่ใส่ข้อมูลเดิม</p></div></section>
   <h2>ความหมายของป้าย</h2>
   <div class="card">${LABELS.map(([g, rows]) => `<div class="lg"><b class="sm">${g}</b><div class="lgr">${rows.map(([c, l, d]) => `<span>${pill(c, l)} <span class="sm dim">${d}</span></span>`).join('')}</div></div>`).join('')}</div>
   <h2>อธิบายคำ</h2>
   ${GLOSS.map(([g, items]) => `<section class="card"><h2 class="mt0 sm2">${g}</h2><dl class="gl">${items.map(([id, t, d]) => `<div id="t-${id}"><dt>${t}</dt><dd>${d}</dd></div>`).join('')}</dl></section>`).join('')}`;
+}
+
+// ---------- daily view ----------
+const WD_TH = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
+const DAY_MIN = '2026-02-04', DAY_MAX = '2051-02-03';
+const isoLocal = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const clampDay = (s) => (s < DAY_MIN ? DAY_MIN : s > DAY_MAX ? DAY_MAX : s);
+const addDays = (s, n) => { const [y, m, d] = s.split('-').map(Number); const t = new Date(Date.UTC(y, m - 1, d + n)); return t.toISOString().slice(0, 10); };
+const dayCache = new Map();
+function monthDays(p, R, ym) {
+  const key = JSON.stringify([p.date, p.time, p.gender, p.longitude, ym]);
+  if (!dayCache.has(key)) {
+    const [y, m] = ym.split('-').map(Number);
+    const n = new Date(Date.UTC(y, m, 0)).getUTCDate();
+    dayCache.set(key, daily(p, R, `${ym}-01`, n));
+  }
+  return dayCache.get(key);
+}
+const fmtDay = (s) => { const [y, m, d] = s.split('-').map(Number); const w = new Date(Date.UTC(y, m - 1, d)).getUTCDay(); return `วัน${WD_TH[w]}ที่ ${d} ${TH_MONTH[m - 1]} ${y}`; };
+const DAY_TIP = {
+  support: 'วันเปิด เหมาะเริ่มเรื่องใหม่ นัดคุยงาน เจรจา ขาย ตัดสินใจเรื่องสำคัญ',
+  neutral: 'วันปกติ ทำงานตามแผน เก็บงานค้าง',
+  caution: 'วันฝืน เลี่ยงการตัดสินใจใหญ่ เซ็นสัญญา หรือโต้เถียง เน้นพักและทำงานประจำ',
+};
+function dayView(p, R) {
+  if (!S.day) S.day = clampDay(isoLocal(new Date()));
+  const ym = S.day.slice(0, 7);
+  const days = monthDays(p, R, ym);
+  const D = days.find((d) => d.date === S.day) || daily(p, R, S.day, 1)[0];
+  if (!D) return '<p class="card">ไม่มีข้อมูลวันนี้ (ช่วงที่ดูได้คือ 4 ก.พ. 2026 – 3 ก.พ. 2051)</p>';
+  const n = R.natal, M = R.monthly.find((m) => m.id === D.month_id), Y = R.annual.find((a) => a.year === D.year);
+  const today = isoLocal(new Date());
+  return `${dayNav(today)}${dayHero(D, M, Y)}${dayTopics(D)}${dayHours(D, n)}${dayLucky(D, n)}${dayDetail(D, n)}${dayCalendar(days, today)}${dayNote(p, D)}`;
+}
+function dayNav(today) {
+  return `<div class="dnav"><button class="icon" data-act="dstep" data-v="-1" aria-label="วันก่อนหน้า">‹</button>
+    <input type="date" id="dpick" value="${S.day}" min="${DAY_MIN}" max="${DAY_MAX}" aria-label="เลือกวัน">
+    <button class="icon" data-act="dstep" data-v="1" aria-label="วันถัดไป">›</button>
+    <button class="btn2 ${S.day === today ? 'ghost2' : ''}" data-act="dtoday">วันนี้</button></div>`;
+}
+function dayHero(D, M, Y) {
+  return `<section class="hero me">
+    <div class="row sb"><span class="sm dim">${fmtDay(D.date)}</span>${pill(D.me.tag, D.me.label_th)}</div>
+    <div class="row base"><span class="big">${elChar(D.pillar[0])}${elChar(D.pillar[1])}</span><span class="dim">วัน${esc(D.animal)} · ${esc(D.elements_th)}</span></div>
+    <p>${DAY_TIP[D.me.tag]}</p>
+    <p class="sm dim">${esc(D.me.note_th)}</p>
+    <div class="ctx sm"><span>เดือน ${esc(M.month_pillar)} ${pill(M.me.tag, M.me.label_th)}</span><span>ปี ${D.year} ${pill(Y.me.tag, Y.me.label_th)}</span>${M.world ? `<span>โลก ${pill(M.world.tag, 'ผันผวน' + M.world.label_th)}</span>` : ''}</div>
+  </section>`;
+}
+function dayTopics(D) {
+  return `<h2>8 ด้านของวันนี้ <button class="info" data-act="view" data-v="guide" aria-label="ความหมายของป้าย">ⓘ</button></h2>
+  <div class="g4 dtop">${TOPICS.map(([k]) => `<div class="dt t-${TONE[D.topics[k].code] || 'n'}"><span>${TOPIC_ICON[k]}</span><b>${TSHORT[k]}</b><small>${esc(D.topics[k].label_th)}</small></div>`).join('')}</div>`;
+}
+function dayHours(D, n) {
+  const max = Math.max(2, ...D.hours.map((h) => Math.abs(h.score)));
+  const bars = D.hours.map((h, i) => {
+    const v = h.score, hgt = Math.max(4, (Math.abs(v) / max) * 34);
+    const col = v > 0 ? '#2F8A4C' : v <= -2 ? '#C2533B' : '#C9A23B';
+    const x = i * 27 + 2;
+    return `<rect x="${x}" y="${v >= 0 ? 40 - hgt : 40}" width="23" height="${hgt}" rx="3" fill="${col}"/>
+      <text x="${x + 11.5}" y="94" text-anchor="middle" font-size="11" fill="#6B675F">${h.time_th.slice(0, 2)}</text>`;
+  }).join('');
+  return sec(`ยามมงคลของวัน ${info('hours')}`, `<svg viewBox="0 0 326 100" width="100%" role="img" aria-label="คะแนน 12 ยาม"><line x1="0" x2="326" y1="40" y2="40" stroke="#E4DED2"/>${bars}</svg>
+    <p class="sm dim c">ตัวเลขใต้แท่งคือชั่วโมงเริ่มของแต่ละยาม (ยามละ 2 ชั่วโมง)</p>
+    <div class="g2 mt8"><div class="box3 g"><small>ช่วงเวลาดี</small>${D.good_hours.length ? D.good_hours.map((h) => `<b>${h.time_th}</b><span class="sm">ยาม${h.animal}</span>`).join('') : '<span class="sm">ไม่มีช่วงเด่น</span>'}</div>
+    <div class="box3 d"><small>ช่วงควรระวัง</small>${D.bad_hours.length ? D.bad_hours.map((h) => `<b>${h.time_th}</b><span class="sm">ยาม${h.animal} ชนกับดวง</span>`).join('') : '<span class="sm">ไม่มีช่วงชนแรง</span>'}</div></div>`);
+}
+function dayLucky(D, n) {
+  const sEl = charEl(D.pillar[0]), bEl = charEl(D.pillar[1]);
+  const weakDay = n.favorability[sEl] <= 0 && n.favorability[bEl] <= 0;
+  const u = n.useful[0];
+  return sec('ธาตุและสีของวันนี้', `<div class="lucky"><span class="sw" style="background:${EL_COLOR[sEl]}"></span><div class="sm"><b>พลังวันนี้: ธาตุ${EL_NAME[sEl]}${sEl !== bEl ? ' + ' + EL_NAME[bEl] : ''}</b><br>
+    <span class="dim">${n.favorability[sEl] > 0 || n.favorability[bEl] > 0 ? 'มีธาตุช่วยของคุณ วันนี้มีแรงหนุน' : 'ไม่ใช่ธาตุช่วยของคุณ วันนี้ต้องใช้พลังมากกว่าปกติ'}</span></div></div>
+    ${u ? `<div class="lucky"><span class="sw" style="background:${EL_COLOR[u]}"></span><div class="sm"><b>สีเติมพลัง: ${EL_INFO[u].color}</b><br><span class="dim">${weakDay ? 'วันนี้ธาตุไม่หนุน ใช้สีหรือของใช้ธาตุ' + EL_NAME[u] + 'เตือนใจให้ใจเย็นและค่อยๆ ทำ' : 'ธาตุ' + EL_NAME[u] + 'คือธาตุช่วยของคุณ · ทิศ' + EL_INFO[u].dir}</span></div></div>` : ''}
+    <p class="sm dim">เป็นสัญลักษณ์เตือนใจ ไม่ได้เปลี่ยนดวงโดยตรง</p>`);
+}
+function dayDetail(D, n) {
+  const sEl = charEl(D.pillar[0]), bEl = charEl(D.pillar[1]);
+  const sR = roleOfEl(n, sEl), bR = roleOfEl(n, bEl);
+  const fx = D.me.factors.filter((f) => FX[f.code]);
+  const kinds = [...new Set(fx.map((f) => f.code))];
+  return sec('อ่านวันนี้แบบละเอียด', `<div class="prose sm">
+    <p><b>ก้านวัน ${elChar(D.pillar[0])}</b> ธาตุ${EL_NAME[sEl]} = "${ROLE[sR].name}" ของคุณ: ${ROLE_YEAR[sR][n.favorability[sEl] > 0 ? 0 : 1]}</p>
+    <p><b>กิ่งวัน ${elChar(D.pillar[1])}</b> (${D.animal}) ธาตุ${EL_NAME[bEl]} = "${ROLE[bR].name}": ${ROLE_YEAR[bR][n.favorability[bEl] > 0 ? 0 : 1]}</p>
+    ${fx.length ? `<p><b>แรงที่เกิดกับดวงวันนี้</b></p><ul class="ul">${fx.map((f) => `<li>${esc(f.th)} <span class="${f.w > 0 ? 'pos' : 'neg'}">(${f.w > 0 ? '+' : ''}${f.w})</span></li>`).join('')}</ul>${kinds.map((k) => `<p class="dim">${FX[k]}</p>`).join('')}` : '<p>วันนี้ไม่มีการชนหรือรวมกับเสาเกิดที่เด่น</p>'}
+    <p class="dim">คะแนนวัน ${D.me.score} รวมพลังวัน + จังหวะของเดือน (เกณฑ์: ≥0.25 หนุน, ≤−2.5 ระวัง) ดวงรายวันเปลี่ยนเร็ว ใช้วางแผนนัดหมายและงานเล็ก ไม่ใช้ตัดสินเรื่องใหญ่ลำพัง</p></div>`);
+}
+function dayCalendar(days, today) {
+  const [y, m] = S.day.split('-').map(Number);
+  const first = new Date(Date.UTC(y, m - 1, 1)).getUTCDay();
+  let cells = '';
+  for (let i = 0; i < first; i++) cells += '<span></span>';
+  for (const d of days) {
+    const dd = +d.date.slice(8);
+    cells += `<button class="cday t-${TONE[d.me.tag]} ${d.date === S.day ? 'sel' : ''} ${d.date === today ? 'today' : ''}" data-act="dpick" data-v="${d.date}" aria-label="${fmtDay(d.date)} ${d.me.label_th}"><b>${dd}</b><small>${d.pillar}</small></button>`;
+  }
+  const cnt = (t) => days.filter((d) => d.me.tag === t).length;
+  const prevM = addDays(`${S.day.slice(0, 7)}-01`, -1).slice(0, 7) + '-01', nextM = addDays(`${S.day.slice(0, 7)}-28`, 7).slice(0, 7) + '-01';
+  return `<section class="card"><div class="row sb"><button class="icon" data-act="dpick" data-v="${clampDay(prevM)}" aria-label="เดือนก่อน">‹</button>
+    <h2 class="mt0">ปฏิทิน ${TH_MONTH[m - 1]} ${y}</h2><button class="icon" data-act="dpick" data-v="${clampDay(nextM)}" aria-label="เดือนถัดไป">›</button></div>
+    <div class="cal">${['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'].map((w) => `<span class="cw">${w}</span>`).join('')}${cells}</div>
+    <p class="sm dim mt8">เดือนนี้: หนุน ${cnt('support')} วัน · กลาง ${cnt('neutral')} วัน · ระวัง ${cnt('caution')} วัน</p></section>`;
+}
+function dayNote(p, D) {
+  const v = p.notes?.[D.date] || '';
+  return `<section class="card"><h2 class="mt0">📝 วันนี้เกิดอะไรจริง</h2>
+    <textarea id="note" rows="2" maxlength="600" placeholder="เช่น ปิดการขายได้ ทะเลาะกับเพื่อนร่วมงาน">${esc(v)}</textarea>
+    <div class="row sb"><span class="sm dim" id="notemsg">${esc(S.noteMsg)}</span><button class="btn2" data-act="savenote" data-v="${D.date}">บันทึก</button></div></section>`;
 }
 
 // ---------------- app (engine + content.js + guide.js inlined above) ----------------
@@ -752,7 +918,7 @@ const yearsWhere = (R, f) => R.annual.filter(f).map((a) => a.year);
 const ylist = (ys) => ys.length ? ys.map((y) => `<button class="ymini" data-act="goyear" data-v="${y}">${y}</button>`).join('') : '<span class="dim sm">ไม่มีในช่วง 2026–2050</span>';
 const sec = (title, inner, id = '', cls = '') => `<section class="card ${cls}"${id ? ` id="${id}"` : ''}><h2 class="mt0">${title}</h2>${inner}</section>`;
 
-const S = { people: [], current: null, view: 'profile', year: null, month: null, topic: 'money', panel: null, storage: 'memory', cache: new Map(), err: '', noteMsg: '', term: null };
+const S = { people: [], current: null, view: 'profile', year: null, month: null, topic: 'money', panel: null, storage: 'memory', cache: new Map(), err: '', noteMsg: '', term: null, day: null };
 const app = document.getElementById('app');
 const STANDALONE = !window.claude;
 
@@ -815,6 +981,7 @@ function render() {
     const R = readingFor(p);
     if (!S.year) { const [y, m] = defaultYM(R); S.year = y; S.month = m; }
     if (S.view === 'profile') body = profileView(p, R);
+    else if (S.view === 'day') body = dayView(p, R);
     else {
       const Y = R.annual.find((a) => a.year === S.year);
       const months = R.monthly.filter((m) => m.chinese_year === S.year);
@@ -842,7 +1009,7 @@ function header(p) {
       <span class="who-t"><b>${p ? esc(p.name || 'ไม่มีชื่อ') : 'เพิ่มคน'}</b><small>${p ? esc(fmtBirth(p)) : 'ยังไม่มีข้อมูล'}</small></span>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
     </button><button class="gbtn ${S.view === 'guide' ? 'on' : ''}" data-act="view" data-v="guide">📖 คู่มือ</button></div>
-    ${p ? `<div class="wrap"><div class="seg" role="tablist">${tab('profile', 'วิเคราะห์ดวง')}${tab('me', 'ดวงฉันรายปี')}${tab('world', 'ดวงโลก')}</div></div>` : ''}</header>`;
+    ${p ? `<div class="wrap"><div class="seg" role="tablist">${tab('profile', 'วิเคราะห์')}${tab('day', 'รายวัน')}${tab('me', 'รายปี')}${tab('world', 'โลก')}</div></div>` : ''}</header>`;
 }
 
 // ---------- profile (analysis) ----------
@@ -1161,6 +1328,7 @@ function monthDetail(M, R) {
     </div>
     <p class="sm mt8">เดือนนี้ธาตุ${EL_NAME[mEl]} (${ROLE[roleOfEl(n, mEl)].name}): ${ROLE_YEAR[roleOfEl(n, mEl)][n.favorability[mEl] > 0 ? 0 : 1]}${mEl !== bEl ? ` · ธาตุ${EL_NAME[bEl]} (${ROLE[roleOfEl(n, bEl)].name}): ${ROLE_YEAR[roleOfEl(n, bEl)][n.favorability[bEl] > 0 ? 0 : 1]}` : ''}</p>
     <div class="tline">${TOPICS.map(([k]) => `<span>${TSHORT[k]} ${pill(tp[k].code, tp[k].label_th)}</span>`).join('')}</div>
+    <button class="btn2 ghost2 mt8 wide" data-act="dpick" data-v="${clampDay(M.start.slice(0, 10))}">ดูรายวันของเดือนนี้ →</button>
     <details><summary>ทำไมได้ผลนี้ (คะแนน ${M.me.score})</summary><ul class="facts">${factors}</ul><button class="link sm" data-act="term" data-v="clash">คำว่า ชน รวม ทับ หมายถึงอะไร</button></details>
   </section>`;
 }
@@ -1247,6 +1415,9 @@ app.addEventListener('click', async (e) => {
   const el = e.target.closest('[data-act]'); if (!el) return;
   const act = el.dataset.act, v = el.dataset.v;
   if (act === 'term') { S.view = 'guide'; S.term = v; render(); return; }
+  if (act === 'dstep') { S.day = clampDay(addDays(S.day, +v)); S.noteMsg = ''; render(); return; }
+  if (act === 'dtoday') { S.day = clampDay(isoLocal(new Date())); S.noteMsg = ''; render(); return; }
+  if (act === 'dpick') { S.day = clampDay(v); S.view = 'day'; S.noteMsg = ''; render(); if (!el.classList.contains('cday')) window.scrollTo({ top: 0 }); return; }
   if (act === 'view') { S.view = v; S.noteMsg = ''; window.scrollTo({ top: 0 }); render(); }
   else if (act === 'year' || act === 'goyear') {
     S.year = +v; S.noteMsg = '';
@@ -1284,6 +1455,7 @@ app.addEventListener('input', (e) => {
 });
 app.addEventListener('change', async (e) => {
   if (e.target.closest('#pf')) updatePreview();
+  if (e.target.id === 'dpick' && e.target.value) { S.day = clampDay(e.target.value); S.noteMsg = ''; render(); }
   if (e.target.id === 'restore' && e.target.files[0]) {
     const m = document.getElementById('bmsg');
     try {

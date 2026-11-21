@@ -1,5 +1,5 @@
 // offline cache: app shell first, fonts as they load
-const CACHE = 'bazi-v2.3';
+const CACHE = 'bazi-v2.4';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', (e) => { e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', (e) => {
